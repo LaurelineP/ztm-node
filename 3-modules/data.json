@@ -1,0 +1,7 @@
+{
+	"data": {
+		"string": "string",
+		"array": [ "array" ],
+		"object": { "type": "object "}
+	}
+}
