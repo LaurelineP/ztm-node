@@ -1,10 +1,3 @@
-# CREATE A WEB SERVER
-
-A web server is a method from `http` or `https` modules through
-the method `createServer`.
-There are 2 commons ways to create a server
-**Https for now will not be used**
-
 ## 5 Add new data with POST
 Based on `req.request`, in order to dissociate type of requests 
 we should evaluate what it the returned value

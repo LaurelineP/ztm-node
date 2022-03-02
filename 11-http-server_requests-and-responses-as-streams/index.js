@@ -43,7 +43,8 @@ server.on('request', (req, res) => {
 			break;
 
 		/** Request with route specifications */
-		case req.url.match(/\/friends/)?.input :
+		case req.url.match(/\/friends/)?.input:
+			console.log('\n[ ROUTE FRIENDS ]')
 			res.setHeader('Content-Type', 'application/json');
 			const requestMethod = req.method;
 
@@ -77,7 +78,9 @@ server.on('request', (req, res) => {
 					console.error( error )
 				})
 				res.statusCode = 200;
-				res.end( 'Data added ')
+				/** Piping ends the stream therefore we do not need res.end anymore */
+				req.pipe(res);
+				// res.end( 'Data added ')
 			}
 			break;
 
