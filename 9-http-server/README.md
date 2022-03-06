@@ -14,7 +14,7 @@ does just create the instance. ( `.listen` method will be the one
 starting the server )
 
 
-- `requestListener` is the function called back immediately added
+- `requestListener` is the function call back immediately added
 	to the request and returning writable and readable streams
 	- req: readable stream
 	- res: writable stream

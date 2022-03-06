@@ -43,7 +43,7 @@ server.on('request', (req, res) => {
 			break;
 
 		/** Request with route specifications */
-		case req.url.match(/\/friends/)?.input :
+		case req.url.match(/\/friends/)?.input:
 			res.setHeader('Content-Type', 'application/json');
 			const requestMethod = req.method;
 

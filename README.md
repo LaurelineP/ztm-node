@@ -285,3 +285,103 @@ installed to your project
 
 
 
+# HTTP AND HTTPS
+Those are built-in modules from NodeJS and meant to create servers
+- Those modules works with synchronous handling ( not promised base )
+however they do work with streams ( writable - REQ, readable - RES streams )
+
+## STREAM LISTENER ( POST / PUT / DELETE )
+```<SERVER-STREAM>.on()```
+using the ```.on()``` listener is to listen to a specific process to the stream
+Every stream inherit from that listener as long - as long as we know the process flow.
+- ```server.on( 'request', (req, res) => {} )``` ==> to receive any data sent to the server
+- ```req.on( <EVENT-STRING>, <EVENT-DATA> => {} )``` ==> within a stream you can listen to processes
+	- ```req.on('data', data => {})``` handles the data the client would like to process through the server
+	- ```req.on('error', error => {})``` handles the error data caught
+	- ```req.on('end', () => {})``` handles the closing process
+
+## REQ: ( request ) readable stream
+req is a readable stream: able to read from the client side ( browser )
+and helps in :
+- req.on()		: establishing listener to the ```req``` stream ( for this case )```
+- req.method() 	: holds the request method value : ```// GET ( or else )```
+- req.url		: holds the entire url value to parse to get endpoints:	```// "http://localhost:9001/friends"```
+- req.body		: holds the posted value from the browser ( using http/http modules within an 'data' event )
+	buffer needing to be process using the
+	Buffer.method ```.toString()```:	
+
+## RES: ( response ) writable stream
+res is the writable stream: to write back to the browser.
+It responses using the following
+- writing status code and headers are mandatory in order the
+browser is able to handle the response.
+- res.setHeader() 	: to set request header ( ex: content-type)
+- res.statusCode 	: to set response status code ( ex: 200, 404 etc )
+- res.write()		: to write more consequent text to the browser
+- res.end()			: to end the request process and it is possible to add a text within
+- req.pipe()		: to automatically close stream and returning a response to the browser
+					Commonly used on POST request piping back the answer.
+					This is a good practice as it can avoid the client-side to make another request
+					to get this very data / or you can also use the updated object back ( this last practice
+					seems to be more common with PUT || PATCH ( update protocols ) than POST ( create protocol ))
+
+
+# API TESTING TOOLS
+Api platforms are meant to help you test your endpoints and API routes.
+Lets you use any request method and lets see show you how your server is
+answering back.
+- PostMan: https://www.postman.com/ ( tests rest and soap api )
+- Insomnia: https://insomnia.rest/ ( Leaner, less configurable (?))
+
+[ SOAP - REST - GRAPHQL ]: https://www.altexsoft.com/blog/soap-vs-rest-vs-graphql-vs-rpc/
+
+
+# EXPRESS SERVER
+Express is a lightweight package managed by LoopBack,
+leaner and cleaner in handling requests than http or https modules.
+Using http and https is fine but constraining whereas using
+Express is robust and avoid anyone to handle every tricky
+elements about requests.
+( Ex: http://localhost:9001 and http://localhost:9001/ - 
+The extra "/" can make the server fail if not handled properly 
+using http or https modules whereas express does )
+
+## BASIC FEATURES
+Express provides few common handy features such as:
+- auto send headers to browser
+- ...res : all the usual streams from http and https modules streams
+- and some special to express:
+	- res.send() => close stream and can send back response to browser ( including Headers )
+	- res.json() => close stream and transform data to json ( including Headers)
+
+## OPINIONATED FEATURES
+- req.params: handling the requested data from endpoints with endpoint followed by "/" + colon and variable placeholder
+	ex:
+	- browser url pattern	: <PROTOCOL>://<DOMAIN>[<PORT>]</PORT>/<ENDPOINT>/<REQUESTED-DATA>
+	- browser url			: 	http 	://localhost:9001		/friends	 /0
+	- express API def. pttrn: 	app.get("/<ENDPOINT>/:<DATANAME>",(req, res) => {})
+	- express API def. 		: 	app.get("/friends	/:friendID ",(req, res) => {})
+
+## EXPRESS VS KOA VS NEXTJS
+All those tools are routing focused 
+- Express is managed by LoopBack ( proposing a StrongLoop framework solution based on Express )
+	Express relies heavily on callback system with a synchronous approach ( do not handle asynchronous )
+	Allows to use middlewares
+- Koa is created by the same author who did express but with a bigger set of tools as it is more opinionated.
+	Koa has a different approach than his big brother: its handling asynchronous therefore is promise based
+	Goal was to be more modular than express in order to be able to reuse middlewares between projects
+- NextJS is a framework simplifying the React based project integration by proposing an opinionated routing
+ approach and also provide SSR ( working with the backend environment this is why CSR is not a concern / however, what about SSG ? In any cases NextJS covers those 
+ 3 aspects ( SSR, CSR == SPA, SSG )
+
+## CHEATCHEET 
+- create a server : ```const server = express()```
+- mounting the server : ```const server = express()```
+- define routing : ```server.[ get | post | put | patch | delete ](( req, res ) => {})```
+- define a middleware: ```server.use(< MIDDLEWARE >)```
+# Listen for specific requests:
+Always at the very end
+	```js 
+	app[ < REQUEST-METHOD > ];
+	// app.get('<PATH>', (req, res) => {})
+	```
