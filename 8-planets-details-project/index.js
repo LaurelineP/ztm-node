@@ -26,7 +26,7 @@ createReadStream( keplerFilePath )
 	.on('end', () => {
 		console.log('Job done!');
 		const planetsSet = getPlanetsData( habitablePlanets );
-		// Populates habitableDetails propertys
+		// Populates habitableDetails properties
 		habitableDetails.planetsCountMsg 	= planetsSet.messages.planetsCount;
 		habitableDetails.planetsListMsg 	= planetsSet.messages.displayNamesList('\n			. ');
 		// Expresses details log
@@ -58,9 +58,9 @@ function isHabitablePlanet( { koi_disposition, koi_insol, koi_prad } ){
 	// Is lux under 1.1 and above 0.36;
 	const isLuxCorrespondence = isLuxHigherThanMin && isLuxLowerThanMax;
 	// Is radius <= 1.6
-	const isSizeCorrespondance = koi_prad <= 1.6;
+	const isSizeCorrespondence = koi_prad <= 1.6;
 
-	return isKoiDispoCorrespondence && isLuxCorrespondence && isSizeCorrespondance;
+	return isKoiDispoCorrespondence && isLuxCorrespondence && isSizeCorrespondence;
 }
 
 

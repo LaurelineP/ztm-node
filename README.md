@@ -9,114 +9,101 @@ Node is an asynchronous event-driven javascript runtime meaning is good to handl
 # Process
 Process module is a Global object to node providing information about and control over the current Node process.
 
-process.argv: array of node installation path
+1. process.argv: array of node installation path
 - returns an array containing the command path
 
 
 
-/**
- * 2. Difference between JS in chrome vs node
- * GLOBALS
- * - Node has the global object ( global.process.argv === process.argv )
- * - Chrome has the window object ( window.console.log() === console.log )
- * 
- * | NODE | CHROME Browser|
- * _________________
- * | global | window |
- * | process | document |
- * | modules |history | 
- * | __filename, __dir | location |
- * | require	| navigator import |
- * | runs modules and server | reads html js css |
- */
+2. Difference between JS in chrome vs node
+GLOBALS
+- Node has the global object ( global.process.argv === process.argv )
+- Chrome has the window object ( window.console.log() === console.log )
 
-/**
- * 3.
- * 
- * WHATWG: community ( apple and mozilla ) responsible for standard in browsers
+| NODE | CHROME Browser|
+_________________
+| global | window |
+| process | document |
+| modules |history | 
+| __filename, __dir | location |
+| require	| navigator import |
+| runs modules and server | reads html js css |
+ 
+
+ 3.
+ 
+ WHATWG: community ( apple and mozilla ) responsible for standard in browsers
  Acronym: Web Hypertext Application Technology Working Group
- */
 
-/**
- * Backend vs front end is the back stage / what's happen underneath
- * How node is mostly users
- * - generally servers to build web app, website, mobile or desktop app
- * - read and write files
- * - provides users data
- * - connect to databases
- * - servers provides authentifications
- * 
- * Front End is what you see as users
- * 
- */
+Backend vs front end is the back stage / what's happen underneath
+How node is mostly users
+- generally servers to build web app, website, mobile or desktop app
+- read and write files
+- provides users data
+- connect to databases
+- servers provides authentications
 
-/**
- * HTTP/HTTPS: protocol in which front end and back end comminicates to provide / receive data
- * in xml, json, txt 
- * 
- * Why requesting data from back end if we can store all data in front end ?
- * - backend is meant to handle certain concept the front end cannot or should not process
- * such as security for instance
- */
+Front End is what you see as users
+
+
+HTTP/HTTPS: protocol in which front end and back end comminicates to provide / receive data
+in xml, json, txt 
+
+Why requesting data from back end if we can store all data in front end ?
+- backend is meant to handle certain concept the front end cannot or should not process
+such as security for instance
 
 
 
-/**
- * What does nodejs do ? 
- * - exploit the entire engine v8 
- * - read write file
- * - catch argument in command
- * NODE JS API --> files interaction, crypto etc
- * + natively some javascript
- * 
- * NODE JS Binding -> when some of the api are wrote in 
- * lower language --> there is a binding to those api --> 
- * 
- * LIBUV ( operating sys ) ( input and output written in C++ ) - client for node to delegate few 
- * tasks / things to work with the website contents for instance
- * Those Libuv does handle the code either for linux, window etc 
- *  JS -> Node ( JS engine -> node API -> node binding -> libuv ) -> serve front end 
- */
-
-/** Nodes is best in async IO */
-
-/**
- * Node internals deep dive
- */
 
 
-/**
- * NodeJS: 	https://github.com/nodejs/node
- * Libuv: 	https://libuv.org/
- */
+What does nodejs do ? 
+- exploit the entire engine v8 
+- read write file
+- catch argument in command
+NODE JS API --> files interaction, crypto etc
++ natively some javascript
 
-/**
- * DEEP DIVE LIBUV
- * The last toolchain member of node environment process
- * - Node let us use libuv through the node.js bindings 
- * ( allowing to access lower languages features )
- * - libuv can binds to other programming languages 
- * https://github.com/libuv/libuv/blob/v1.x/LINKS.md
- * 
- * - handling diff os ( code differents )
- * https://github.com/libuv/libuv/tree/v1.x/src
- * - unix ( linux, debian, darwin ( MacOS ) etc )
- */
+NODE JS Binding -> when some of the api are wrote in 
+lower language --> there is a binding to those api --> 
+
+LIBUV ( operating sys ) ( input and output written in C++ ) - client for node to delegate few 
+tasks / things to work with the website contents for instance
+Those Libuv does handle the code either for linux, window etc 
+ JS -> Node ( JS engine -> node API -> node binding -> libuv ) -> serve front end 
+
+Nodes is best in async IO
+
+Node internals deep dive
+NodeJS: 	https://github.com/nodejs/node
+Libuv: 	https://libuv.org/
 
 
-/**
- * SYNCHRONOUS VS ASYNCHRONOUS
- * 
- * - asynchronous meaning: opposite of synchronous:
- * code that does not necessarily run line by line 
- * running diff things at the same time 
- * 
- * - synchronous meaning:
- * code that reads code lines one by one
- * does things step by step
- * 
- * Nodejs is really good as handling asynchronous without blocking the front end
- */
+
+DEEP DIVE LIBUV
+The last toolchain member of node environment process
+- Node let us use libuv through the node.js bindings 
+( allowing to access lower languages features )
+- libuv can binds to other programming languages 
+https://github.com/libuv/libuv/blob/v1.x/LINKS.md
+
+- handling diff os ( code different )
+https://github.com/libuv/libuv/tree/v1.x/src
+- unix ( linux, debian, darwin ( MacOS ) etc )
+
+
+
+SYNCHRONOUS VS ASYNCHRONOUS
+
+- asynchronous meaning: opposite of synchronous:
+code that does not necessarily run line by line 
+running diff things at the same time 
+
+- synchronous meaning:
+code that reads code lines one by one
+does things step by step
+
+Nodejs is really good as handling asynchronous without blocking the front end
+
 
 - ASYNCHRONOUS CALLBACKS
 
@@ -141,30 +128,30 @@ Thanks to libuv: functionalities that don't belong to the proper core of JS, jav
 	**Thread is a self-context running asynchronously ( can be run in parallel and do not block regular js executions **
 	EX:
 	Every program currently executed are processes ( here node is executed therefore this is a ), a process is a thread machine wise
-		- how does node do it? 
-			- what happen when you run a process ?
-			( executable running for instance and here
-			in our case: Node )
-				- Processes are containers:
-					- code == processes to do : process contains your code which lives in the memory of that process
-					Basically a process is something that is asked to run in parallel representing a single sequence of operations ( like functions )
-						- threads instanciated with sequences of task
-						The code might instance new threads
-							- call stack: these sequences lives in the call stack ( finishes function executions defined )
+	- how does node do it? 
+		- what happen when you run a process ?
+		( executable running for instance and here
+		in our case: Node )
+			- Processes are containers:
+				- code == processes to do : process contains your code which lives in the memory of that process
+				Basically a process is something that is asked to run in parallel representing a single sequence of operations ( like functions )
+					- threads instantiated with sequences of task
+					The code might instance new threads
+						- call stack: these sequences lives in the call stack ( finishes function executions defined )
 
-						deadlocks happen in multi threading programming --> if not resolved the thread remains running
+					deadlocks happen in multi threading programming --> if not resolved the thread remains running
 
-						How nodes allowed us to do handle multi-threads	and allow js to do that. ( blocking function will block the process of your initial code ) thanks to EventLoop.
+					How nodes allowed us to do handle multi-threads	and allow js to do that. ( blocking function will block the process of your initial code ) thanks to EventLoop.
 
-						LIBUV handles asynch I/O ( file system and network )
-						Each time we run async functions or code --> these goes to event loop ( also a context registering function ordered execution that should be resolved in order to process the second )
+					LIBUV handles async I/O ( file system and network )
+					Each time we run async functions or code --> these goes to event loop ( also a context registering function ordered execution that should be resolved in order to process the second )
 
-						- file system relates to thread pool
-						- network would be delegate by the browser
-						Saving the CPU to process all that
+					- file system relates to thread pool
+					- network would be delegate by the browser
+					Saving the CPU to process all that
 
-						4 limited threads ? ( mentionned 4 threads)
-						Node knows what needs to be done regarding thread therefore the dev don't need to worry how to write the code to which thread
+					4 limited threads ? ( mentionned 4 threads)
+					Node knows what needs to be done regarding thread therefore the dev don't need to worry how to write the code to which thread
 
 
 THE EVENT LOOP
@@ -178,7 +165,7 @@ THE EVENT LOOP
 7 event look 
 	-> several phases ( 4 ) by developpers
 		- timers ( == processed first phase  )
-		- I/O callback and bounded callback ( == poll queur ) ( == processed second phase )
+		- I/O callback and bounded callback ( == poll queue ) ( == processed second phase )
 		- setImmediate phase ( execute after io phases ) executed before another event loop is processed
 		- close callbacks phases ( close files or network connection )
 		- - -  
@@ -203,13 +190,13 @@ THE EVENT LOOP
 		- PHP and Python were using more traditional model where they needed web server like Apache.
 		Apache was blocking so needed threads
 		Each client talking with the server would be into a new thread
-		Lot of trafic ( connexion ) with Apache would crash quickly.
+		Lot of traffic ( connection ) with Apache would crash quickly.
 
 		2009 Node came with its model of non blocking I/O
 		--> clearing by queuing in event loop by delegating the majority of the work ( no need to additional server )
 
 		Today: non blocking IO are standardized
-		We can put a server like Apache and NGINX of front with node server ( handling on thousant conccurrent )
+		We can put a server like Apache and NGINX of front with node server ( handling on thousand concurrent )
 
 
 # WHEN IS USING NODE THE RIGHT CHOICE ? WHAT IS NODE.JS BEST AT ?
@@ -218,7 +205,7 @@ THE EVENT LOOP
 NETWORK CARD			OPERATING SYSTEM
 							HARDDRIVES
 
-More optimised in certains situations:
+More optimized in certain situations:
 Node is not good at:
 	- video processing ( blocking processors heavy computation )
 	- machine learning ( blocking processors heavy computation or GPU )
@@ -235,7 +222,7 @@ Node is good at:
 Event driven has been taken for granted
 What does it mean for us to react on event loop.
 Observer design pattern are proven approaches to resolves problems.
-Observers subscribe to events in order to know whats its occuring and may react to them.
+Observers subscribe to events in order to know whats its occurring and may react to them.
 When an events occurs --> the subscribed observers are bounded to that events : meaning every events occurring ( if subscribed ) the observer will be in the loop
 
 # EVENTS
@@ -362,7 +349,7 @@ Express provides few common handy features such as:
 	- express API def. pttrn: 	app.get("/<ENDPOINT>/:<DATANAME>",(req, res) => {})
 	- express API def. 		: 	app.get("/friends	/:friendID ",(req, res) => {})
 
-## EXPRESS VS KOA VS NEXTJS
+# EXPRESS VS KOA VS NEXTJS
 All those tools are routing focused 
 - Express is managed by LoopBack ( proposing a StrongLoop framework solution based on Express )
 	Express relies heavily on callback system with a synchronous approach ( do not handle asynchronous )
@@ -374,10 +361,13 @@ All those tools are routing focused
  approach and also provide SSR ( working with the backend environment this is why CSR is not a concern / however, what about SSG ? In any cases NextJS covers those 
  3 aspects ( SSR, CSR == SPA, SSG )
 
-## CHEAT SHEET 
-- create a server : ```const server = express()```
 - mounting the server : ```const server = express()```
 - define routing : ```server.[ get | post | put | patch | delete ](( req, res ) => {})```
 - define a middleware: ```server.use(< MIDDLEWARE >)```
 
 
+## EXPRESS MVC
+MVC : model view controller
+Model being Data / DB
+View: would be backend wise the api or front end routes(s)
+Controllers: back-end router.
