@@ -25,4 +25,4 @@
 	 send( url, data );
 	 return read( data );
  }
- request('https://www.google.com', 'prout');
+ request('https://www.google.com', 'hello world');
