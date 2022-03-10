@@ -371,3 +371,36 @@ MVC : model view controller
 Model being Data / DB
 View: would be backend wise the api or front end routes(s)
 Controllers: back-end router.
+
+## EXPRESS ROUTER
+Router is meant to organize the routes / being like a small app.
+It can be organized within a routes folder in which you define files based on endpoints
+- create a router : express().Router for each endpoint being under the same req.url
+- gather every requests made into module files to define into each router  
+- set your router up high with the middleware
+
+## REST PATTERN
+- endpoint naming: better having them in plurial nouns == also called collections
+( on PostMan: we registered our endpoints with plurial nouns under a "Collections" Tab )
+- id of item
+
+### What makes an API RESTful?
+Those following a pattern regarding https request
+Acronym stands for
+- REpresentational
+- State
+- Transfer
+
+Roy Fielding did help creating rest design: https://www.youtube.com/watch?v=6oFAmQUM8ws&ab_channel=RohitKhare
+Follow a bunch of best practices 
+Representational and State are both referring to how the server
+makes your data available
+The Transfer talks about how the response is sent back to the client.
+General idea behind it to heavy use the existing standards on the web ( HTTP, JSON, URL ) ( NB: Roy is also responsible for the HTTP standard )
+- URL: are address used to get accessed to any need
+- HTTP: the protocol handling the URL
+- JSON: being one of the standard to transfer data
+
+- Endpoints are collections of data
+- Use GET POST PUT and DELETE
+- Our requests are both **stateless** and **cacheable**
