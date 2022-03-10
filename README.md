@@ -404,3 +404,18 @@ General idea behind it to heavy use the existing standards on the web ( HTTP, JS
 - Endpoints are collections of data
 - Use GET POST PUT and DELETE
 - Our requests are both **stateless** and **cacheable**
+Stateless: ref to each request is separate and not connected to any state on the client that is not included into the request so, the server is not tracking any request made from client - **only keep track on data in our collections**
+Oposite of stateless would be to track requests from front-end and the session - which sticks around between the request to the server ( ex PHP is tracking every requests in session-variable )
+The request being stateless means that those can be cached
+by saving the result into the server.
+We only need to track the data within our collections
+
+Looking back at our Postman API:
+we could have created endpoint with verbs ```http://localhost:9000/createNewFriend
+--> **This is called "Remote Procedure Calls"**
+*Before, the server and client were communicating that way with remote procedure call
+--> front end asking for the server to do an action ( createNewFriends ) with the 
+entire body formatted from the front end: in order to return data.
+Ignoring the truth of the fact that client and the server are 2 separate machines
+
+*
