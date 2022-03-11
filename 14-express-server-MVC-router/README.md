@@ -31,9 +31,17 @@ Always at the very end
 
 ## Middleware 
 Middleware are intercepted process between the request and the the request accessing the route / but it is also intercepted on the return way.
-The next() execution tells the process to pass to the next stream.
-- the code before the next() execution is to do actions on request stream
-- the code after the next() execution is to do actions once the response stream as finished
+Create a middleware
+	```js 
+	app.use(( req, res, next ){
+		//... Scope to apply code for incoming request 
+		next() // 💥 must never forget this next() otherwise the server is pending
+		//... Scope to apply code for returning response 
+	});
+	```
+The ```next()``` execution tells the process to pass to the next stream.
+- the code before the ```next()``` execution is to do actions on request stream
+- the code after the ```next()``` execution is to do actions once the response stream as finished
 
 ## MVC
 Model View Controller:
@@ -86,10 +94,22 @@ The router can be organized within a "route" directory giving the following tree
 		|__ <endpoint2>.route.js ( relies on model and controllers )
 
 - Create router: ```const <COMMON-ENDPOINT-NAMED-ROUTE> = express.Router()``` for each common endpoints
-- Replace "app" requesting on same endpoint and replace "app" by your <COMMON-ENDPOINT-NAMED-ROUTE> router: 
-- Create a middleware for each <COMMON-ENDPOINT-NAMED-ROUTE> router
+- Replace "app" requesting on same endpoint and replace "app" by your <COMMON-ENDPOINT-NAMED-ROUTE> instance router: 
+- Create a middleware for each <COMMON-ENDPOINT-NAMED-ROUTE> router ```app.use('/friends, friendsController.getFriends )```
 - Grab every methods relative to an endpoint and create a file under routes/ for 	each endpoint	
 	( export and import them into the server ) --> see 14-express-router
 	- 2 ways: to handle every method routes url:
 		- either declare to your server.js while instanciating your router the url it should match and make it relative within the route files
 		- either declare the url into your routes file and make your server worrying about no first arguments ( url )
+
+
+## Sending files
+Express provides a ```res``` stream method ```sendFile``:
+```res.sendFile(<'file-path'>)``` ( accessing any file from any path )
+*To assimilate to a punctual need*
+but 
+```res.static(<'folder-directory'>)``` is also used to let
+the server dispose from every files that public directory has.
+*To assimilate to a whole robust server based - common when doing a real project to server from public directory files generated.*
+See: https://stackoverflow.com/questions/31425284/express-static-vs-res-sendfile#:~:text=Static%20middleware%20and%20sendFile(),set%20ETag%20for%20you
+

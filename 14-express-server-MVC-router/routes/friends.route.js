@@ -23,6 +23,8 @@ friendsRouter
 /* -------------------------------------------------------------------------- */
 	.get('/', friendsController.getFriends )
 	.get('/:friendID', friendsController.getFriend )
-	.post('/', friendsController.postFriend );
+	.post('/', friendsController.postFriend )
+	/** Personal practice */
+	.delete('/', friendsController.deleteFriend );
 
 module.exports = friendsRouter;

@@ -1,11 +1,11 @@
 const express 				= require('express');
-const { sendRouteText } 	= require('./controllers/utils.controller')
-const friendsController 	= require('./controllers/friends.controller')
-const messagesController 	= require('./controllers/messages.controller')
-const friendsData 			= require('./models/friends.model.js');
-const messages 				= require('./models/messages.model.js')
+const path 					= require('path');
+const { sendRouteText } 	= require('./controllers/utils.controller');
+
 const friendsRouter			= require('./routes/friends.route');
 const messagesRouter		= require('./routes/messages.route');
+const filesRouter			= require('./routes/files.route');
+const { use } = require('./routes/friends.route');
 
 
 
@@ -36,6 +36,14 @@ app
 		const delta = Date.now() - startTime;
 		console.log("Duration ended :", delta );
 	})
+	/** Enable serving static files */
+	// .use( express.static('./')) // OK: accessible through http://localhost:9001/public/mypage.html ( to never do ! )
+	.use( express.static('public')) // OK: accessible through http://localhost:9001/mypage.html
+	// 								// ( misconception: relative to where the command did launched the server )
+	// .use( express.static(__dirname, 'public'))
+
+	.use( express.static(path.join(__dirname, 'public'))) // OK: accessible through http://localhost:9001/mypage.html
+									//( best practice to ensure the project to be relative to its own path and not from where the command line has been executed )
 	.use( express.json());
 
 /** 4.1 Mounting routers - without entrypoint pre-configured */
@@ -48,7 +56,8 @@ app
  *  just whatever there is after the second "/" */
 app
 	.use('/friends', friendsRouter )
-	.use('/messages', messagesRouter );
+	.use('/messages', messagesRouter )
+	.use('/files', filesRouter )
 
 app
 	.get('/', (req, res) => sendRouteText( req, res, 'Welcome' ))
