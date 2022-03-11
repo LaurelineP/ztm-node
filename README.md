@@ -405,7 +405,7 @@ General idea behind it to heavy use the existing standards on the web ( HTTP, JS
 - Use GET POST PUT and DELETE
 - Our requests are both **stateless** and **cacheable**
 Stateless: ref to each request is separate and not connected to any state on the client that is not included into the request so, the server is not tracking any request made from client - **only keep track on data in our collections**
-Oposite of stateless would be to track requests from front-end and the session - which sticks around between the request to the server ( ex PHP is tracking every requests in session-variable )
+Opposite of stateless would be to track requests from front-end and the session - which sticks around between the request to the server ( ex PHP is tracking every requests in session-variable )
 The request being stateless means that those can be cached
 by saving the result into the server.
 We only need to track the data within our collections
@@ -418,4 +418,54 @@ we could have created endpoint with verbs ```http://localhost:9000/createNewFrie
 entire body formatted from the front end: in order to return data.
 Ignoring the truth of the fact that client and the server are 2 separate machines
 
-*
+## Common errors while routing and their meaning:
+- ```[ERR_STREAM_WRITE_AFTER_END]: write after end```: error is raised because the writable 
+stream res has been closed before being able to execute the next lines that want to also
+ write back to the client --> move your res.write above the stream closing execution ( req.pipe, res.end, res.send, res.status(xxx).json(), res.json() ).
+- ```[ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client```: error
+raised because the statusCode should be on top of your logic block ( before writing back any 
+answers to the client and you did the all way around --> move your statusCode setting 
+( res.status(), before anything else ))
+- NOTE: If a case scenario from the client to server communication is not handled : 
+the server will crash.
+
+## SERVING WEBSITE WITH NODE
+All a website is the files nested under the public repository.
+This is where ```express.static(<PUBLIC-DIR-PATH>``` method helps.
+This would provide the client ( browser ) the availability of serving any files
+under that server.
+If you have any kind of files ( mypage.html, picture.jpg, ...); those would served 
+under the browser url being: ```http://localhost:9001/mypage.html```
+This should be set as a middleware.
+```app.use(express.static('public'))```
+( relative path resolution by default: relative from where the server has been launched.
+if a serer is launched from this 14-express-server-MVC-router, the server relative root ref is './' therefore 'public' is interpreted as: './public' and would properly serve
+the directory
+ )
+( counter the relative auto resolution would be to use ```path``` module as follow: 
+```path.join(__dirname, 'public' )```
+if a server is launched outside of this 14-express-server-MVC-router without path.join
+the previous files accessibility from public would not be resolved as the root ref for your server is where the command is executed ( at this point ./ is would refer to: ```../14-express-server-MVC/``` )
+Using your path.join(__dirname, 'public') will ensure that server will always relies on its context path.
+)
+
+NB: 
+- when this middleware is not set: accessing the previous url into the browser would
+respond with a a next() and an error message ( express automatically handles this ).
+*When a file is not found, instead of sending a 404 response, it instead calls next() to move on to the next middleware, allowing for stacking and fall-backs.*
+The client page with display:
+"Cannot GET /mypage.html" but will not cause your server to crash 🙌
+- When the middleware is set: accessing the previous url will be enabled and can let the
+server serve the available static pages
+	- Trying to serve other directory than "public" ex "routes" and this did not work
+	probably because we need to provide options
+
+Serving files from public instead of serving back data is not RESTful.
+Being a RESTful api does not necessary means you cannot serve files - that's ok and common.
+
+If you expect to receive tons of connection: serving your files from the server will not be
+in your benefit: a good way to do that would be to serve those static files from a
+**Content Delivery Network ( CDN )** in order to let people being served easily and fastly
+Examples: 
+- Akamai: https://www.akamai.com/our-thinking/cdn/what-is-a-cdn
+- Amazon CloudFront: https://aws.amazon.com/cloudfront/features/
