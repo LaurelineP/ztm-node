@@ -5,7 +5,6 @@ const { sendRouteText } 	= require('./controllers/utils.controller');
 const friendsRouter			= require('./routes/friends.route');
 const messagesRouter		= require('./routes/messages.route');
 const filesRouter			= require('./routes/files.route');
-const { use } = require('./routes/friends.route');
 
 
 
