@@ -7,7 +7,7 @@ Express is one of the mostly used web lightweight framework
 	```
 
 ## Mounting a server:
-		```js
+	```js
 	app.listen([ PORT ], <CB>)
 	```
 
