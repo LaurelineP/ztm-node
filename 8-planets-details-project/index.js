@@ -24,7 +24,7 @@ createReadStream( keplerFilePath )
 		console.error( err )
 	} )
 	.on('end', () => {
-		console.log('Job done!');
+		// console.log('Job done!');
 		const planetsSet = getPlanetsData( habitablePlanets );
 		// Populates habitableDetails properties
 		habitableDetails.planetsCountMsg 	= planetsSet.messages.planetsCount;
