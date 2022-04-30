@@ -558,3 +558,17 @@ your data.
 ## SuperTest - Library to test http requests
 https://www.npmjs.com/package/supertest
 
+
+
+## IMPROVE NODE PERFORMANCE
+- Reminder: JS is a single threaded programming language, meaning it is executed line by line and 
+can freeze the browser ( navigator )
+- Node is a JS runtime 
+- Node Server receives requests, Node will process it using Event Loop then will send back to the client
+the response. The Event Loop is great in handling multiple process by taking advantage of the threads
+avoiding any code blocking
+
+
+### Building A Simple Blocking Server
+In order to understand how to improve performances issues we need to understand how we might run onto
+performance issues.
