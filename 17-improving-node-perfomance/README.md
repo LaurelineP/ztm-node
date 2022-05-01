@@ -58,3 +58,24 @@ In order to understand how to improve performances issues
 							   +
 					"DELAY" FUNCTION TIME"?
 			---------------------------------------
+
+
+### Blocking functions
+4 Examples of blocking functions.
+- Json: few ms.
+	- JSON.stringify
+	- JSON.parse
+	- Array.prototype.sort - Js sorting array methods.
+	- Crypto builtin module's methods: ( key derivation functions)
+	↳ pbkdf2 method
+	↳ scrypt method
+Resources: "Response-time:3 important limit user perception"
+https://www.nngroup.com/articles/response-times-3-important-limits/
+- 100ms == 0.1s	: user perception feel the system is reacting
+instantaneously [IDEAL].
+- 1000ms = 1s : about the limit of the user's flow
+of thoughts
+- 10000ms = 10sec : about the limit of keeping the user's
+attention-focused. with the desire of wanting to do something meanwhile,
+
+"speed matter" - https://www.speedcurve.com/blog/web-performance-monitoring-user-engagement/
