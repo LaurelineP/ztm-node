@@ -78,9 +78,6 @@ of thoughts
 - 10000ms = 10sec : about the limit of keeping the user's
 attention-focused. with the desire of wanting to do something meanwhile,
 
-<<<<<<< HEAD
-"speed matter" - https://www.speedcurve.com/blog/web-performance-monitoring-user-engagement/
-=======
 "speed matter" - https://www.speedcurve.com/blog/web-performance-monitoring-user-engagement/
 
 ### RUNNING MULTIPLE PROCESSES (explanation]
@@ -100,4 +97,3 @@ working together in parallel. - sharing the load equal y
 this technique is an alternative to multiple threaded
 application within a single threaded App. using all
 the CPUs. in your machine -
->>>>>>> 6336d9e (17_2_blocking-functions)
