@@ -97,3 +97,4 @@ working together in parallel. - sharing the load equal y
 this technique is an alternative to multiple threaded
 application within a single threaded App. using all
 the CPUs. in your machine -
+"speed matter" - https://www.speedcurve.com/blog/web-performance-monitoring-user-engagement/
