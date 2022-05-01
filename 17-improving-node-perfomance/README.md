@@ -58,3 +58,42 @@ In order to understand how to improve performances issues
 							   +
 					"DELAY" FUNCTION TIME"?
 			---------------------------------------
+
+
+### Blocking functions
+4 Examples of blocking functions.
+- Json: few ms.
+	- JSON.stringify
+	- JSON.parse
+	- Array.prototype.sort - Js sorting array methods.
+	- Crypto builtin module's methods: ( key derivation functions)
+	↳ pbkdf2 method
+	↳ scrypt method
+Resources: "Response-time:3 important limit user perception"
+https://www.nngroup.com/articles/response-times-3-important-limits/
+- 100ms == 0.1s	: user perception feel the system is reacting
+instantaneously [IDEAL].
+- 1000ms = 1s : about the limit of the user's flow
+of thoughts
+- 10000ms = 10sec : about the limit of keeping the user's
+attention-focused. with the desire of wanting to do something meanwhile,
+
+"speed matter" - https://www.speedcurve.com/blog/web-performance-monitoring-user-engagement/
+
+### RUNNING MULTIPLE PROCESSES (explanation)
+Best way to solve a problem is to divide into smaller
+chunk.
+Best way to deal w/ overloaded server (w/ too much work)
+↳ divide ↳ spread the load
+Note: Node can have multiple processes, side by side,
+allowing them to work for a common task.
+
+In node we are handling multiple Requests →
+we can spread our requests out into multiple
+processes that each respond to the request the same
+way.
+Each have a copy of our server code and are
+working together in parallel. - sharing the load equal y
+this technique is an alternative to multiple threaded
+application within a single threaded App. using all
+the CPUs. in your machine -
