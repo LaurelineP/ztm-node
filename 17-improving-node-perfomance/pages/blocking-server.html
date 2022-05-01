@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blocking-server</title>
+</head>
+<body>
+	<button><a href = "/">< Back Home</a></button>
+	<h1>📈 Blocking server ( no demo )</h1>
+	<h2>DING DING DING !</h2>
+	<details open>
+		<summary>Implementation</summary>
+		<p>Accessing this page triggers a loop where Node cannot delegates to other process as:
+		- it is not a request that v8 should handle
+		- it is not some file to process with libuv
+		This is the main process handling the pure javascript.</p>
+		<p>The experience was to open twice this very page: then refresh 
+			both tab as quick as possible --> we can observe that their first state are pending
+			then the first refreshed tab is done
+			finally it is only when the first tab refreshed is done that the server process the
+			second process --> == pended while first task has been processed / kept pending 
+			because of the loop effect
+		</p>
+<code>
+<pre style = "background-color: #EEE">
+	const express = require('express');
+	const app = express();
+
+	<i>/**
+	* Delay using a while loop with a "startTime"
+	* ( avoiding to use process handling timers ( from v8 ))
+	* @param {number} duration 
+	*/
+	</i>function delay( duration ){
+		const startTime = new Date();
+
+		while( new Date() - startTime < duration  ){
+			count += 1;
+			console.log(`Within loop...: ${ count }`);
+			
+			<i>/** Event loop & CPU is blocked processing
+			* 	this loop
+			* **/</i>
+		}
+	}
+
+	app.get( '/blocking-server', (req, res) => {
+		delay(9_000);
+		res.sendFile( pathResolve( '../pages/blocking-server.html' ) );
+	})
+
+	<i>/* ... */</i>
+</pre>
+</code>
+
+	</details>
+</body>
+</html>
