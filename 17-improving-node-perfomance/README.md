@@ -97,3 +97,34 @@ working together in parallel. - sharing the load equal y
 this technique is an alternative to multiple threaded
 application within a single threaded App. using all
 the CPUs. in your machine -
+<<<<<<< HEAD
+=======
+"speed matter" - https://www.speedcurve.com/blog/web-performance-monitoring-user-engagement/
+
+### Cluster
+Cluster built in module creates processes to de-load the main process to handle too many requests.
+Also it could be a first approach to load balancing before pm2 that we will see later on.
+
+- ```const cluster = require('cluster')```
+- using ```cluster.fork()``` method: creates a new process.
+This process will represent the exact same code from
+your main process.
+- using ```cluster.isMaster``` boolean flag is meant
+to distinguish if the cluster is the main one or another one
+-  In our practice, by decoupling request e
+
+- NOTE:
+	- you mush include and wrap the server mounting block code ( *app.listen* )
+	within the else scope otherwise you'll get an error EADDRINUSE
+
+#### Vertical and Horizontal scaling 
+- Vertical Scaling ( aka scaling up ) is mainly upgrading your machine power
+- Horizontal Scaling  ( aka scaling down ) is mainly decoupling processes
+in smaller piece in order to be run / executed in parallel.
+Generally deciding over one type of scale can makes no sense as it we
+could benefit from both of them.
+Remember the practical experience: the cluster was mainly decoupling the 
+main processes handling requests into cloned processes for each cores
+--> this is called **Round Robin** and this decoupling process is behaving as
+such by default.
+>>>>>>> c681db8 ([  17_3_processes-with-cluster ])
