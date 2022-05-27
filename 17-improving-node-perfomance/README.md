@@ -125,3 +125,41 @@ Remember the practical experience: the cluster was mainly decoupling the
 main processes handling requests into cloned processes for each cores
 --> this is called **Round Robin** and this decoupling process is behaving as
 such by default.
+
+## PM2
+Quick start - https://pm2.keymetrics.io/docs/usage/quick-start/
+- Installation: https://www.npmjs.com/package/pm2
+- Commands:
+ - `pm2 start server.js`: launches server observing the (main?) process
+ ( daemonized - able to reload while developing )
+ - `pm2 stop [ server.js | id ]`: will stop the process
+ - `pm2 delete server.js`: will kill the process(es) 
+ - `pm2 list`: will list all your processes
+ - `pm2 log`: will log in realtime
+ - `pm2 start server.js -i [ n | max ]` : ( `i` for `instance`): measures the 
+ amount of worker processes that will be created in our server.
+ - `pm2 start server.js -i <n> -l logsFile.txt`: will start the server  
+ with logs to write into the files logsFile.txt ( ==> `-l logsFile.txt` )
+ - `pm2 show <pid>`: will give you a lot of details concerning the process id  
+ - `pm2 monit`: ( monitoring ) will logs every details in live
+ you've given
+
+- `pm2 start server -
+ ### PM2 and clustering features built-in
+As it comes with the cluster module we do not need anymore
+to use the cluster module within our code.
+- no need to fork inside our JS: pm2 will fork the process
+	- remove code block with ".isMaster" flag identification to fork - t*he code will be run as our worker process.*
+
+### PM2 and getting details about our processes
+- `pm2 show <pid>`: will give you a lot of details concerning the process id  
+- `pm2 monit`: ( monitoring ) will logs every details in live
+
+### PM2 zero downtime restart
+Usually you may have a your server available for users but you want to make updates to your code.
+For such cases, this is where "zero downtime restart" takes place:
+It is meant for the developer to provide changes but still having your server up and running.
+With pm2 we could basically use the `restart` command: but this will prevent users to have  
+access on the server as this one will be stopped then restarted
+`reload` is the command we want: by itself it will reload each process one by one: avoiding users
+not having access to the website --> it will be transparent for the users.
