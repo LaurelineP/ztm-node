@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PM2</title>
+
+</head>
+<body>
+	<button><a href = "/">< Back Home</a></button>
+	<h1>PM2</h1>
+	<ul>
+		<li>Quick start: <a href="https://www.npmjs.com/package/pm2">https://www.npmjs.com/package/pm2</a></li>
+		<li>Installation: <a href="https://www.npmjs.com/package/pm2">https://www.npmjs.com/package/pm2</a></li>
+		<h2>Commands:</h2>
+		<li><pre style = "background-color: #EEE; max-width: 300px;">pm2 start server.js</pre> launches server observing the (main?) process<br/>
+		( daemonized - able to reload while developing )</li>
+		<li><pre style = "background-color: #EEE; max-width: 300px;" >pm2 stop [ server.js | id ]</pre> will stop the process</li>
+		<li><pre style = "background-color: #EEE; max-width: 300px;" >pm2 delete server.js</pre> will kill the process(es) </li>
+		<li><pre style = "background-color: #EEE; max-width: 300px;" >pm2 list</pre> will list all your processes</li>
+		<li><pre style = "background-color: #EEE; max-width: 300px;" >pm2 log</pre> will log in realtime</li>
+		<li><pre style = "background-color: #EEE; max-width: 300px;" >pm2 start server.js -i [ n | max ]</pre> ( `i` for `instance`): measures the 
+		amount of worker <br/> processes that will be created in our server.</li>
+
+		<li><pre style = "background-color: #EEE; max-width: 300px;" >pm2 start server</pre></li>
+	### PM2 and clustering features built-in
+	As it comes with the cluster module we do not need anymore
+	to use the cluster module within our code.
+	- no need to fork inside our JS: pm2 will fork the process
+		- remove code block with ".isMaster" flag identification to fork - t*he code will be run as our worker process.*
+		xw
+		</ul>
+		
+</body>
+</html>
