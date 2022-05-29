@@ -163,3 +163,43 @@ With pm2 we could basically use the `restart` command: but this will prevent use
 access on the server as this one will be stopped then restarted
 `reload` is the command we want: by itself it will reload each process one by one: avoiding users
 not having access to the website --> it will be transparent for the users.
+
+
+### PM2: Improve performances with the Nasa Project
+The bottleneck of every single threaded app will be how the servers will manage multiple requests at once.
+PM2 will help in this practice of improving the Nasa Project.
+1. Go within server folder: `cd server` 
+2. Install locally pm2: `npm install pm2`
+
+
+### How use PM2 with our Nasa Project?
+Even though we have been careful while creating the APIat some point
+the bottleneck will be how much CPUs is used and how many request  
+the server can handle within the single threaded event loop/
+
+In server folder:
+1. `cd server` folder
+2. Install locally PM2:`npm install pm2`
+3. Add a script to use cluster command in `package.json`:  
+`pm2 start src/server.js -i O`
+ - Update `package.json` file → and add a script using
+a cluster command using pm 2.  
+
+In common* `package.json` file (* to both server ✗ client folders)
+1. Add a `"deploy-cluster"` script command:
+	↳ copy paste deploy script and modify `npm start --prefix server` by
+	`npm run cluster --prefix server`
+
+In the app
+- Checking how the app react. '
+ - ✅ - we could register a first launch
+ - ✅ - we could check that launch
+ - ❌ - we did register a launch action wise but couldn't see it: 2nd request not working
+ - why? Checking upcoming tab → it seems the first launch was replaced by the second.
+   ↳  checking `server/src/models/launcher.model.js`: we keep in
+   memory the" touches Map" variable in our new process dieting as long as our process is running.
+   When creating those processes we've cloned the server code,
+   each code has their own "launches map" object
+   ↳ we probably want to share this object
+   It's because our servers are not stateless solution:
+   remove the state somewhere else → Real database
