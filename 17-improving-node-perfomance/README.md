@@ -166,6 +166,8 @@ not having access to the website --> it will be transparent for the users.
 
 
 ### PM2: Improve performances with the Nasa Project
+*(In 5-nasa-project_improving-performances)*
+
 The bottleneck of every single threaded app will be how the servers will manage multiple requests at once.
 PM2 will help in this practice of improving the Nasa Project.
 1. Go within server folder: `cd server` 
@@ -224,5 +226,20 @@ different:
  - cluster module uses processes
  - worker_threads module uses the V8 isolates
 How Hose differences should matter?
-
 - worker can share memory with each other
+
+
+### WORKER THREADS IN APPLICATION
+*(In 6_worker_threads-in-application folder)*
+
+0. import `Worker` constructor and `isMainThread` to check our thread availability in order to add a worker.
+1. adds worker only if `isMainThread` ( creating new Worker with the __filename argument will keep creating one if the condition is not set )
+```js
+/* 0. Creates a worker thread ensure it is done once
+otherwise it will keep creating new thread */
+if( isMainThread ){
+	new Worker(< main-script-or-module-file-path >)
+}
+```
+2. checking what we could expect to see
+	- run ```node threads.js```

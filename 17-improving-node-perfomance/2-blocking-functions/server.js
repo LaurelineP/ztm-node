@@ -36,13 +36,15 @@ app
 		res.sendFile( pathResolve( '../pages/blocking-server.html' ) );
 	})
 	/** 2 - blocking functions [ JSON [ stringify, parse ]] */
-	.get('/blocking-functions', (req, res) => {
+	.get( '/blocking-functions', (req, res) => {
 		/**
 		 * - JSON.stringify();
 		 * - JSON.parse();
 		 * - Crypto module [ methods: pbkdf2, scrypt ]
 		 *  */ 
-		res.sendFile( pathResolve( '../pages/blocking-functions.html' ));
+		// res.sendFile( pathResolve( '../pages/blocking-functions.html' ));
+		res.sendFile( pathResolve( '../pages/blocking-server.html' ) );
+
 	})
 
 

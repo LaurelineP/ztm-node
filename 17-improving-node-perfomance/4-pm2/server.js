@@ -53,7 +53,9 @@ app
 		 * - JSON.parse();
 		 * - Crypto module [ methods: pbkdf2, scrypt ]
 		 *  */ 
-		res.sendFile( pathResolve( '../pages/blocking-functions.html' ));
+		// res.sendFile( pathResolve( '../pages/blocking-functions.html' ));
+		res.sendStatus(200)
+
 	})
 
 	.get('/pm2', (req, res) => {
