@@ -125,8 +125,6 @@ Remember the practical experience: the cluster was mainly decoupling the
 main processes handling requests into cloned processes for each cores
 --> this is called **Round Robin** and this decoupling process is behaving as
 such by default.
-<<<<<<< HEAD
-=======
 
 ## PM2
 Quick start - https://pm2.keymetrics.io/docs/usage/quick-start/
@@ -228,4 +226,3 @@ different:
 How Hose differences should matter?
 
 - worker can share memory with each other
->>>>>>> 90c53ce ([ 17_5_nasa-project_improving-performances ])
