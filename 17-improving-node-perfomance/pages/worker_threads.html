@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/styles.css">
+		<title>Worker Threads</title>
+	</head>
+	<body>
+		<button><a href = "/">< Back Home</a></button>
+
+		<!-- --------------------- WORKER THREADS INTRODUCTION --------------------- -->
+		<h1>Worker Threads ( From v8 Isolate )</h1>
+		<a href="https://nodejs.org/api/worker_threads.html">Worker thread documentation</a><br>
+		<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web worker documentation</a>
+		<p>Feature allowing to execute threads that execute
+			JavaScript in parallel. (module navel "worker_threads")
+			worker threads can share memory through a <code>SharedArrayBuffer</code></p>
+		<h2>What is the difference between multithreaded a worker thread in Node?</h2>
+		<ul>
+			<li>worker_threads in Node are based on web worker available in our browser.<br>
+				<i>(allowing to put javascript into a worker thread)</i>.</li>
+			<li>thanks to V8 isolates (see this as sandbox instances)
+				<ul>
+					<li>isolated instance of the v8 engine independently</li>
+				</ul>
+			</li>
+			<li>worker_threads is like cluster module but different:
+				<ul>
+					<li>cluster module uses <b>processes</b></li>
+					<li>worker_threads module uses the <b>V8 isolates</b></li>
+				</ul>
+			</li>
+		</ul>
+		<h2> How those differences should matter ?</h2>
+		<img src="/images/processes-and-wortker_threads.jpeg" width="500px"/>
+		<ul>
+			<li>worker can share memory with each other</li>
+		</ul>
+
+
+		<!-- ---------------------- WORKER THREADS IN ACTION ---------------------- -->
+		<h1>Worker thread in action</h1>
+		<i>( In ztm-node/17-improving-performances/6-worker- threads-in-application/threads.js ).</i>
+		<ol>
+			<li>
+				import <b><code>Worker</code></b> constructor and <b><code>isMainThread</code></b> flag. <br>
+				- create a <b><code>new Worker(< path > < option >)</code></b><br>
+				- "new Worker" constructor accepts <b>2 arguments</b>: [ file path, options ], <br>
+				for the 1ˢᵗ argument we will add <b><code>__filename</code></b><br>
+				( a node's built-in variable) --> this represents the code, module you want <br>
+				to create a worker from.
+			</li><br>
+			<li>Running <b><code>node threads.js</code></b>: did execute the code but nothing did properly logged<br>
+				into the terminal beside the <code>console.log</code> we've  wrote.</li><br>
+			<li>How worker threads are different from worker processes?<br>
+				<i>(Hint: See the logged processes pid" value in the code)</i><br>
+				These show the differences between:<br>
+				<ul>
+					<li>creating multiple threads and</li>
+					<li>how worker-threads work.<br>
+						Observing the logs: <b>all processes have
+						the same pid.</b></li>
+				</ul>
+				Whereas the multi thread would be to have
+				different pid. (hence different processes).</li>
+		</ol>
+
+
+
+	</body>
+</html>
+
+

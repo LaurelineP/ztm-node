@@ -36,7 +36,7 @@ app
 		res.sendFile( pathResolve( '../pages/blocking-server.html' ) );
 	})
 	/** 2 - blocking functions [ JSON [ stringify, parse ]] */
-	.get('/blocking-functions', (req, res) => {
+	.get( '/blocking-functions', (req, res) => {
 		/**
 		 * - JSON.stringify();
 		 * - JSON.parse();
