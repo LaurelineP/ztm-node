@@ -372,9 +372,9 @@ Controllers: back-end router.
 ### EXPRESS ROUTER
 Router is meant to organize the routes / being like a small app.
 It can be organized within a routes folder in which you define files based on endpoints
-- create a router : express().Router for each endpoint being under the same req.url
+- create a router : `express().Router` for each endpoint being under the same `req.url`
 - gather every requests made into module files to define into each router  
-- set your router up high with the middleware
+- set your router up high with the middleware (`app.use(...)`)
 
 ### REST PATTERN
 - endpoint naming: better having them in plurial nouns == also called collections
