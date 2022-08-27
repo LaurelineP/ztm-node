@@ -1,0 +1,23 @@
+{
+  "name": "20-node-security-and-authentification",
+  "version": "1.0.0",
+  "description": "**Finished Code for this section*: https://github.com/odziem/security-example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "helmet": "^6.0.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "passport": "^0.5.0"
+  }
+}
