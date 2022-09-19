@@ -1,0 +1,30 @@
+
+# Custom NASA PROJECT CI  workflow name
+name: NASA PROJECT CI
+
+# Triggers on [ push, pull_request action ] to branch [ 21-NASA-project-CI-CD ]
+on: 
+  push:
+    branches: [ 21-NASA-project-CI-CD ]
+  pull_request:
+    branches: [ 21-NASA-project-CI-CD ]
+
+# A workflow is built up on jobs ( equivalent to checking all those jobs )
+# - By default, github actions jobs runs in parallel which should be specified
+#   under the job with a new indentation with `needs` key and the  action it relies
+#    onto
+jobs:
+  build:
+    # specifies on which environment to run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # adding description with `name`
+      - name: 'Uses Node version 16'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      # `run` - is to run custom command
+      - run: cd 21-nasa-project-CI-CD && npm install
+      - run: cd 21-nasa-project-CI-CD && npm run build --prefix client
+
