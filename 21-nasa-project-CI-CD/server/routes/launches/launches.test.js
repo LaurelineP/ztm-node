@@ -1,6 +1,7 @@
 const request 									= require( 'supertest' );
 const app 										= require('../../src/app');
 const { connectToMongo, disconnectFromMongo } 	= require('../../services/mongo');
+const { loadLaunchesData } 						= require('../../models/launches.model');
 /**
  * Should solve issue "app.address is not a function from supertest"
  * https://stackoverflow.com/questions/33986863/mocha-api-testing-getting-typeerror-app-address-is-not-a-function
@@ -10,6 +11,7 @@ const API_ENDPOINT = '/v1/launches';
 describe('Launches API and connection to DB', () => {
 	beforeAll( async () => {
 		await connectToMongo();
+		await loadLaunchesData();
 	})
 
 	afterAll( async() => {

@@ -1,7 +1,6 @@
 
 # Custom NASA PROJECT CI  workflow name
 name: NASA PROJECT CI
-
 # Triggers on [ push, pull_request action ] to branch [ 21-NASA-project-CI-CD ]
 on: 
   push:
@@ -15,16 +14,30 @@ on:
 #    onto
 jobs:
   build:
+  # Sets custom env "variable" like
+    env:
+      CI: true # By default will remove watch mode if any commands has it
+      MONGO_URL: mongodb://localhost/nasa
+    strategy:
+      matrix:
+        node-version: [ 14.x, 16.x ]
+        mongodb-version: ['4.4']
     # specifies on which environment to run
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v2
       # adding description with `name`
-      - name: 'Uses Node version 16'
+      - name: 'Uses Node version ${{ matrix.node-version }}'
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: ${{ matrix.node-version }}
+      - name: Use MongoDB from Github actions
+        uses: supercharge/mongodb-github-action@1.6.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       # `run` - is to run custom command
       - run: cd 21-nasa-project-CI-CD && npm install
       - run: cd 21-nasa-project-CI-CD && npm run build --prefix client
+      - run: cd 21-nasa-project-CI-CD && cd server && npm run test
 
