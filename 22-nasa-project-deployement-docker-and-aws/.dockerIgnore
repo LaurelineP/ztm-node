@@ -1,0 +1,15 @@
+# Any git related information
+.git
+
+# Removes all node_modules
+*/node_modules
+
+# Removes any related file to server artifact built
+server/public
+
+# Removes all .env file to track
+# 🚨 comment the following line in order to 
+# 	have that file trackable for the dockerfile
+#	( courses includes .env for the docker image
+# 	with the MONGO_URL variable or create one )
+*/.env
