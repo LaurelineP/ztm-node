@@ -1,0 +1,17 @@
+
+type Query {
+	products: [Product]
+}
+
+type Product {
+	id: ID!
+	title: String!
+	description: String!
+	price: Float!
+	reviews: [Review]
+}
+
+type Review {
+	rating: Int!
+	comment: String
+}
