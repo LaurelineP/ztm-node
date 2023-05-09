@@ -1,0 +1,46 @@
+
+# /* -------------------------------------------------------------------------- */
+# /*                                1. INITIAL WAY                              */
+# /*      	       commented so we can observe the differences                  */
+# /* -------------------------------------------------------------------------- */
+# type Query {
+# 	products: [Product]
+# }
+
+# type Product {
+# 	id: ID!
+# 	title: String!
+# 	description: String!
+# 	price: Float!
+# 	reviews: [Review]
+# }
+
+# type Review {
+# 	rating: Int!
+# 	comment: String
+# }
+
+
+# /* -------------------------------------------------------------------------- */
+# /*                    2. ADVANCED WAY WITH QUERY FUNCTIONS                    */
+# /* -------------------------------------------------------------------------- */
+type Query {
+	products: [Product]
+	# type for returned value querying productsByPrice
+	# after this updates, we must update the resolvers files
+	productsByPrice( min: Float!, max: Float! ): [Product]
+	productById( id: ID! ): Product
+}
+
+type Product {
+	id: ID!
+	title: String!
+	description: String!
+	price: Float!
+	reviews: [Review]
+}
+
+type Review {
+	rating: Int!
+	comment: String
+}

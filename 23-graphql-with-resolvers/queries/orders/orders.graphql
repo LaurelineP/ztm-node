@@ -1,0 +1,46 @@
+# /* -------------------------------------------------------------------------- */
+# /*                                1. INITIAL WAY                              */
+# /*      	       commented so we can observe the differences                  */
+# /* -------------------------------------------------------------------------- */
+
+# type Query {
+# 	orders: [Order]
+# }
+
+# type Order {
+# 	id: ID!
+# 	date: String!
+# 	total: Float!
+# 	products: [OrderItem]
+# }
+
+# type OrderItem {
+# 	products: [Product]
+# 	quantity: Int
+# }
+
+
+
+# /* -------------------------------------------------------------------------- */
+# /*                    2. ADVANCED WAY WITH QUERY FUNCTIONS                    */
+# /* -------------------------------------------------------------------------- */
+
+type Query {
+	orders: [Order]
+	orderById(id: ID!): Order
+}
+
+type Order {
+	id: ID!
+	date: String!
+	total: Float!
+	products: [OrderProductItem]
+}
+
+type OrderProductItem {
+	quantity: Int
+	price: Float
+	title: String
+	id: ID
+}
+
