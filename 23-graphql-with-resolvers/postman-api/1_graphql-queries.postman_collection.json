@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "ac064ccc-0b85-4407-ae63-d12fce95b530",
+		"name": "1 - graphql queries",
+		"description": "# 🔸 Graphql Queries\n\nGraphQl queries get data (read data) - without specification ( without parameters )  \n_Example: getting all the products from database_\n\n## 🔹 Define a Query Schema\n\n``` graphql\n#Define a query schema\ntype Query {\n    Query:\n     # <data-property-name>: <type>\n     products: [Product]\n}\n\n```\n\n## 🔹 Execute a Query\n\n``` graphql\n#Describe/compose a query ( describing with \"<code class='preserveHtml' >query\"</code> operation )\nquery {\n  #<property-name> {\n   # <sub-property-name>\n   # <sub-property-name>\n   # ...\n  #}\n  products {\n      id\n      title\n      description\n      price\n  }\n}\n#Describe/compose a query ( without describing with \"query\" operation - by default )\n{\n  #<property-name> {\n   # <sub-property-name>\n   # <sub-property-name>\n   # ...\n  #}\n  products {\n      id\n      title\n      description\n      price\n  }\n}\n\n```\n\n---\n\n---",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6361597"
+	},
+	"item": [
+		{
+			"name": "get products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    products {\n        id\n        title\n        price\n        description\n        reviews {\n            id\n            userId\n            rating\n            comment\n            date\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/graphql",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    orders {\n        id\n        total\n        products {\n            quantity\n            id\n            title\n            price\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/graphql",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": "Gets all orders"
+			},
+			"response": []
+		},
+		{
+			"name": "get products and orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    products {\n        id\n        title\n        price\n        description\n        reviews {\n            id\n            userId\n            rating\n            comment\n            date\n        }\n    }\n    orders {\n        id\n        total\n        products {\n            quantity\n            id\n            title\n            price\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/graphql",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": "Gets all products and orders combining 2 requests into one query"
+			},
+			"response": []
+		}
+	]
+}

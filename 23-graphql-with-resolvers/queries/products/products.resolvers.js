@@ -7,9 +7,23 @@ const productsModel = require('./products.model');
 const products_query_resolvers = {
 	Query: {
 		products		: productsModel.getAllProducts,
+
 		// After this update, we need to update the model
+		productById		: productsModel.getProductById,
 		productsByPrice	: productsModel.getProductsByPrice,
-		productById		: productsModel.getProductById
+	},
+	Mutation: {
+		/* Product */
+		addProduct: productsModel.addProduct,
+		updateProduct: productsModel.updateProduct,
+		deleteProduct: productsModel.deleteProduct,
+
+		/* Review */
+		addProductReview: productsModel.addProductReview,
+		// updateProductReview: productsModel.updateProductReview, //TODO
+		deleteProductReview: productsModel.deleteProductReview, //TODO
+
+
 	}
 }
 module.exports = products_query_resolvers;

@@ -8,7 +8,8 @@ const orders_query_resolvers = {
 	Query: {
 		orders: ordersModel.getAllOrders,
 		// After this update, we need to update the model
-		orderById: ordersModel.getOrderById
+		orderById: ordersModel.getOrderById,
+
 	}
 }
 module.exports = orders_query_resolvers;

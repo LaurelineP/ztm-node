@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Home</title>
-</head>
-<body>
-	<main>
-		<p>Hello from Server</p>
-		<ul>
-			<li><a href="/graphql">GraphQL API</a></li>
-		</ul>
-	</main>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" src="./styles.css" />
+		<style>
+			html, body {
+				height: 100vh;
+				margin: unset;
+				font-family: Avenir;
+			}
+			main {
+				display: flex;
+				flex-direction: column;
+				margin: 50px;
+			}
+			section#graphiql {
+				display: inherit;
+				flex-direction: initial;
+				justify-content: center;
+			}
+			section#graphiql iframe {
+				border: unset;
+				height: 50vh;
+			}
+		</style>
+		<title>Home</title>
+	</head>
+	<body>
+		<main>
+			<h1>GraphQL Server</h1>
+			<p>Endpoints: [ products, orders ]</p>
+			<section id="links">
+				<ul>
+					<li><a href="/graphql">GraphQL API page</a></li>
+				</ul>
+			</section>
+			<section id="graphiql">
+				<iframe src="http://localhost:8000/graphql" width = "96%">
 	
-</body>
+				</iframe>
+			</section>
+		</main>
+		
+	</body>
 </html>

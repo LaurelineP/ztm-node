@@ -1,37 +1,7 @@
 
 # /* -------------------------------------------------------------------------- */
-# /*                                1. INITIAL WAY                              */
-# /*      	       commented so we can observe the differences                  */
+# /*                                    TYPES                                   */
 # /* -------------------------------------------------------------------------- */
-# type Query {
-# 	products: [Product]
-# }
-
-# type Product {
-# 	id: ID!
-# 	title: String!
-# 	description: String!
-# 	price: Float!
-# 	reviews: [Review]
-# }
-
-# type Review {
-# 	rating: Int!
-# 	comment: String
-# }
-
-
-# /* -------------------------------------------------------------------------- */
-# /*                    2. ADVANCED WAY WITH QUERY FUNCTIONS                    */
-# /* -------------------------------------------------------------------------- */
-type Query {
-	products: [Product]
-	# type for returned value querying productsByPrice
-	# after this updates, we must update the resolvers files
-	productsByPrice( min: Float!, max: Float! ): [Product]
-	productById( id: ID! ): Product
-}
-
 type Product {
 	id: ID!
 	title: String!
@@ -41,6 +11,31 @@ type Product {
 }
 
 type Review {
+	id: ID!
 	rating: Int!
+	userId: ID!
+	date: String!
 	comment: String
+}
+# /* -------------------------------------------------------------------------- */
+# /*                                   QUERIES                                  */
+# /* -------------------------------------------------------------------------- */
+type Query {
+	products: [Product]
+	# type for returned value querying productsByPrice
+	# after this updates, we must update the resolvers files
+	productById( id: ID! ): Product
+	productsByPrice( min: Float!, max: Float! ): [Product]
+}
+
+# /* -------------------------------------------------------------------------- */
+# /*                                  MUTATIONS                                 */
+# /* -------------------------------------------------------------------------- */
+type Mutation {
+	addProduct(title: String!, description: String!, price: Float! ): Product
+	updateProduct(id: ID!, title: String, description: String, price: Float ): Product
+	deleteProduct(id: ID!): [Product]
+
+	addProductReview(productId: ID!, rating: Int!, comment: String, userId: ID! ): [Review]
+	deleteProductReview(id: ID!): [Review]
 }

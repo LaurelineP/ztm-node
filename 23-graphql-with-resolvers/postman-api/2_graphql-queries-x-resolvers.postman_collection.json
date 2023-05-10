@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "6b919d69-e966-4250-aba1-5c5557f09e9c",
+		"name": "2 - graphql queries x resolvers",
+		"description": "# 🔸 Graphql Queries x Resolvers\n\nGraphQl queries with resolvers **get** (read data) a specific item - have parameter to handle.  \n_Example: getting one item from all the products in the database_\n\n## 🔹 Define a Query Resolver Schema\n\n``` graphql\ntype Query {\n    #<resolver-custom-name>(<param>: <type>): <type>\n    productById(id: ID!): Product\n}\n\n```\n\n## 🔹 Execute a Query Resolver\n\n``` graphql\n{\n    #<resolver-custom-name>(<param>: <value>) {\n       productById(id: 'zzzzz') {\n           id\n           title\n           description\n           price\n       }\n    }\n}\n\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6361597"
+	},
+	"item": [
+		{
+			"name": "get product by id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    productById(id:\"shoesLucky42\"){\n        id\n        title\n        description\n        price\n        reviews {\n            userId\n            comment\n            rating\n            date\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get products by price",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    productsByPrice(min: 1, max: 40){\n        id\n        title\n        description\n        price\n        reviews {\n            id\n            rating\n            comment\n            userId\n            date\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get order by id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    orderById(id: 1){\n        id\n        date\n        total\n        products {\n            id\n            quantity\n            title\n            price\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

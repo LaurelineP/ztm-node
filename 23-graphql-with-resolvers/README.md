@@ -1,36 +1,35 @@
 # GRAPH QL
-Query language that allows to query the needed fields, 
-instead of the usual REST approach which fetches the entire
-data object
-( Created by FaceBook in 2009)
+Query language that allows to query the needed fields, instead of 
+the usual REST approach which fetches the entire data object
+*(Created by FaceBook in 2009)*
 
 
 ## Resources
-- course section code: https://github.com/odziem/graphql-example
-- graphql: https://graphql.org/
-- graphql star wars server: https://swapi-graphql.eskerda.vercel.app/ 
-- graphql spec: https://spec.graphql.org/
-- graphql tools: https://www.graphql-tools.com/ ( apollo tools :  can help split up the code - will be used)
-- graphql with react: https://github.com/graphql/express-graphql
-- Graphql execution [ scalar and function resolvers ] https://graphql.org/learn/execution/
-- Graphql ID type: https://spec.graphql.org/draft/#sec-ID
-
-### Added features with graphql
-- relay: https://relay.dev/
-- apollo graphql: https://www.apollographql.com/
+- __course section code__: https://github.com/odziem/graphql-example
+- __graphql details__
+	- graphql: https://graphql.org/
+	- graphql star wars server: https://swapi-graphql.eskerda.vercel.app/ 
+	- graphql spec: https://spec.graphql.org/
+	- graphql tools: https://www.graphql-tools.com/ ( apollo tools :  can help split up the code - will be used)
+	- graphql with react: https://github.com/graphql/express-graphql
+	- Graphql execution [ scalar and function resolvers ] https://graphql.org/learn/execution/
+	- Graphql ID type: https://spec.graphql.org/draft/#sec-ID
+- __additional tools__
+	- relay: https://relay.dev/
+	- apollo graphql: https://www.apollographql.com/
 
 
 ## Graphql glossary
-- query
-- schemas
-- resolvers:  Inner functions that resolve the response data gathered 
+- __schemas__: defines & types the structure of a query ( including mutation queries ) 
+- __query__: both the instructions to create a query and those are meant to get data
+- __resolvers__:  Inner functions that resolve the response data gathered 
  as returned data for a given query
 
 ---------------------------------------------
 
 ## GraphQL and queries specs
 
-### Syntax
+- __Syntax__
 ```graphql
 {
 	<field> {
@@ -42,9 +41,8 @@ data object
 }
 ```
 
-Example: 
-https://swapi-graphql.eskerda.vercel.app/
-One film amongst a collection of film
+- __Example:__ with the example of the [swapi graphql API](https://swapi-graphql.eskerda.vercel.app/)
+One film amongst a collection of films
 ```graphql
 {
 	film(<filmID>) {
@@ -56,7 +54,7 @@ One film amongst a collection of film
 }
 ```
 
-or the same be prepended by `query`: 
+  or the same be prepended by `query`: 
 this can be done but in general this is used for *mutations*
 
 ```graphql
@@ -71,7 +69,7 @@ query {
 ```
 
 #### In a same query we can: 
- - query one or multiple document(s)
+ - query __one__ or __multiple__ document(s)
  ```graphql
 {
 	# Querying film document  
@@ -90,7 +88,7 @@ query {
 }
 ```
  ---------------------------
-### How GraphQL differ from a RestAPI or How is this better
+### How GraphQL differs from a RestAPI or How is this better
 - GraphQL simplify things by resolving 2 problematic:
 	- over fetching: fetching unnecessary data / doing multiple requests
 	- under fetching: query one even though this request different endpoint
@@ -141,7 +139,7 @@ would have been with REST
 ----------------------------------------------------------------
 
 ## 0. Creating a GraphQL server
-- [git]: npm init -y
+- [git]: `npm init -y`
 - [packages installation]
 	- [express]: `npm install express`
 	- [graphql]: `npm install graphql`
@@ -301,7 +299,7 @@ the resolver's param `parent` ( === way 2 preferred over way 1)
 
 
 
-## Access to data specific item and filter
+### Access to data specific item and filter
 Example access one item by their id with parametarized queries
 ( queries function accepting arguments )
 This implies to update:
@@ -378,15 +376,15 @@ With the e-commerce like project we could query the following
   orders {
     id
   }
- 	# resolver - one specific order
+  # resolver - one specific order
   orderById(id: 1) {
     id
     date
     total
     products {
     	quantity
-			title
-      price
+		title
+      	price
     }
   }
   
@@ -401,10 +399,65 @@ With the e-commerce like project we could query the following
   }
   
   # resolver - one product
-	productById(id: "shoesLucky42"){
+	productById(id: "product_57679776-3632-447b-861d-252be75588e0"){
     title
     description
     price
   }
 }
 ```
+
+
+## 3. Graphql Mutations
+Graphql can update existing data, or create, or delete data using mutations.
+Resolvers are also used in here - when handling a specific request for a specific data
+### How to make mutations
+While querying, instead of describing the query ( with or without the query word ), 
+it should be written `mutation`.
+
+### Tips
+- resolvers - a mutation and its resolver may rely on another resolver ( keep in mind the importance of the parameters handling - [either inherited* or controlled*](#2-graphql-resolvers) )
+Clean way: reuse existing resolvers if possible instead of re-implementing a similar logic
+- multiple mutations queries: Querying multiple same mutations may
+cause error linting. For sure one can mutate multiple times but when 
+it is multiple action using the same mutation - this will cause issues.
+In those case we want to apply aliases prepended by the mutation operation name. 
+*( aliases here are custom name you pick )*
+
+``` graphql
+# Syntax: using aliases to differentiate multiple same mutations operation
+mutation {
+	<alias1>:mutationName1(<param-name>: <param-value>, <param-name>: <param-value>, ...){
+		# returned properties desired
+		<property1>
+		<property2>
+		<property3>
+		...
+	}
+	<alias2>: mutationName1(<param-name>: <param-value>, <param-name>: <param-value>, ...){
+		# returned properties desired
+		<property1>
+		<property2>
+		<property3>
+		...
+	}
+}
+```
+
+
+## GraphQL Playground in Postman
+Once the server being mounted, the API is executable through postman
+( must have a postman account )
+This provides the collection and the queries created 
+( with/out resolvers and mutations )
+
+__Endpoints__
+- for a small catalog of products
+- for orders
+
+| Topic collection | Runnable |
+|:-----|:---------:|
+|1 - graphql queries collection| [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/6361597-86349b61-c063-4d1e-8a33-641958471790?action=collection%2Ffork&collection-url=entityId%3D6361597-86349b61-c063-4d1e-8a33-641958471790%26entityType%3Dcollection%26workspaceId%3D5d86d608-a194-4a9c-ad9b-99019893f9d4)|
+| 2 - graphql queries x resolvers collection | [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/6361597-b7a6c053-e7af-4d34-aed1-eb6f73886013?action=collection%2Ffork&collection-url=entityId%3D6361597-b7a6c053-e7af-4d34-aed1-eb6f73886013%26entityType%3Dcollection%26workspaceId%3D5d86d608-a194-4a9c-ad9b-99019893f9d4) |
+| 3 - graphql mutations x resolvers collection | [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/6361597-b7a6c053-e7af-4d34-aed1-eb6f73886013?action=collection%2Ffork&collection-url=entityId%3D6361597-b7a6c053-e7af-4d34-aed1-eb6f73886013%26entityType%3Dcollection%26workspaceId%3D5d86d608-a194-4a9c-ad9b-99019893f9d4) |
+
