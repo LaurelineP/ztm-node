@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "6e3692a1-7e5c-40cc-b7e4-eccd50af0297",
+		"name": "3 - graphql mutations x resolvers",
+		"description": "# 🔸 Graphql Mutations x Resolvers\n\nGraphQl mutations ( with resolvers ) apply operation on database ( create, update, delete ) using resolvers to pass parameters  \n_Example: add a new product_\n\n## 🔹 Define a Mutation Resolver Schema\n\n``` graphql\ntype Mutation {\n    #<resolver-custom-name>(<param>:<type>, <param>:<type> ... ): <type>\n    productById( \n        title: String!,\n        description: String!\n        price: Float!\n    ): Product\n}\n\n```\n\n## 🔹 Execute a Query Resolver\n\n``` graphql\nmutation {\n    #<resolver-custom-name>(<param>: <value>...) {\n       productById(\n           title: \"product\",\n           description: \"descriptions\",\n           price: 10\n        ) {\n           id\n           title\n           description\n           price\n       }\n    }\n}\n\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6361597"
+	},
+	"item": [
+		{
+			"name": "add product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n    addProduct(\n        title: \"Black Boots\"\n        description: \"Great to wear for important and casual events! \"\n        price: 89.85\n    ){\n        id\n        title\n        description\n        price\n        reviews {\n            id\n            comment\n            rating\n            date\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add product review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n    addProductReview (productId:\"product_c7102e2f-98f9-49e5-b6e1-ace3cd1dfb76\", comment: \"great!\", rating: 5, userId: \"Genevieve\" ){\n        id\n        userId\n        rating\n        comment\n        date\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n    updateProduct(id:\"product_cd996787-0a3c-4055-9fe1-4900a67500e9\", price: 50){\n        id\n        title\n        description\n        price\n        reviews {\n            id\n        }\n    }\n   \n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete product review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n    deleteProductReview(id:\"review_7754236a-52d7-4e8e-87be-790ad5be4630\"){\n       comment\n       userId\n       date\n       rating\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n    deleteProduct(id: \"product_c7102e2f-98f9-49e5-b6e1-ace3cd1dfb76\"){\n        title\n        description\n        price\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
