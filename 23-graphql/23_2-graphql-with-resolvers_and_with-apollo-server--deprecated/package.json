@@ -1,0 +1,19 @@
+{
+  "name": "23-graphql",
+  "version": "1.0.0",
+  "description": "Query language that allows to query the needed fields,  instead of the usual REST approach which fetches the entire data object ( Created by FaceBook in 2009) ## Syntax ```graphql { \t<field> { \t\t<subfield> \t\t<subfield> \t\t<subfield> \t\t... \t} } ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.6.1",
+    "@graphql-tools/schema": "^9.0.19",
+    "apollo-server-express": "^3.12.0",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0"
+  }
+}
