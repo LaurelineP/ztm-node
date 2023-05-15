@@ -296,4 +296,11 @@ cf: "Appendix: Pong Front End" section
 		- if socket lost the connection try to reconnect
 	
 	- Using Socket.io with Express
-		- 
+		- Install express `npm install express`
+		- personal before head implementation
+			- Create an express server
+			- Add a middleware to serve static files
+			- Pass the express app to the socket io server as argument
+		- tip: on `index.html` no need to specify an URL to connect to as by default it connect to the same URL that was configured ( this can be removed )
+		- lessons implementation leads
+			- After setting the express server ( similar to the before head implementation ) - did apply SOC and refacto
