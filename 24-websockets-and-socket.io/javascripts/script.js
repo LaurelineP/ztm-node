@@ -251,4 +251,4 @@ socket
   .on('resetGame', () => { 
     // Re-initialize the game by reloading the whole.
     window.location.reload();
-   })
+   });

@@ -43,7 +43,8 @@ if the client did request something based on an interval.
 		- 7. Game Logic between server and client: ball and score
 		https://github.com/odziem/multiplayer-pong/tree/9a2b5e9fc8c5598dad7691b09168b4db01a3b550
 		- 8. Handle client disconnection: https://github.com/odziem/multiplayer-pong/tree/5af91bbb593377427dc0b7bb96f5b9ab4db4bb69
-
+		- 9. Using Socket.io with Express
+		https://github.com/odziem/multiplayer-pong/tree/2665506091e6d226cf90f0703acbe7fb5ebd301a
 
 
 ## Sockets:
@@ -295,3 +296,4 @@ cf: "Appendix: Pong Front End" section
 		- if socket lost the connection try to reconnect
 	
 	- Using Socket.io with Express
+		- 
