@@ -45,6 +45,10 @@ if the client did request something based on an interval.
 		- 8. Handle client disconnection: https://github.com/odziem/multiplayer-pong/tree/5af91bbb593377427dc0b7bb96f5b9ab4db4bb69
 		- 9. Using Socket.io with Express
 		https://github.com/odziem/multiplayer-pong/tree/2665506091e6d226cf90f0703acbe7fb5ebd301a
+		- 10. NameSpace: https://github.com/odziem/multiplayer-pong/tree/bd46bb422a8dea01aba1f356157cc1e2eb25fd70
+		- 11.  Rooms: https://github.com/odziem/multiplayer-pong/tree/020f29867892476409bdd04511159b4b9741c77e
+
+
 
 
 ## Sockets:
@@ -166,7 +170,6 @@ Multiplayer game to create a ping pong game ( Natari-like ) using ZIP regarding 
 --> to create it from the ground: 20 project in JS.
 cf: "Appendix: Pong Front End" section
 
-
 - paddle: represents the platform on which the ball bounce back
 
 - Project
@@ -198,14 +201,14 @@ cf: "Appendix: Pong Front End" section
 		- opportunities to add more complex logic to be processed
 		- support for multiple users ( clients ) at once.
 
-- How this will work
+- **How this will work**
 	- [client] - the client will sent and `emit("ready", playerId)` to the server
 	- [server] - once the client is ready ( receive the event ), it will respond
 	with a `broadcast('startGame', isReferee )` event, setting one player being the referee.
 	- [client] - will `emit('paddleMove', paddleData)` to the server and let it acknowledge the paddle position updates in real time
 	- [server] - `broadcast('paddleMove', paddleData)` will allow the server to address the request and broadcast it back to all
 	other players
-	- [client] - the `referree` receiving the updates, will update the front end logic (` ballMove`) 
+	- [client] - the `referee` receiving the updates, will update the front end logic (` ballMove`) 
 	`broadcast('ballMove', paddleData)`
 	- [server] - receiving `ballMove` event --> will broadcast the update to all others clients.
 	`broadcast('ballMove', ballData)`
@@ -278,6 +281,8 @@ cf: "Appendix: Pong Front End" section
 	implement more thing than it should to to be triggered --> refacto
 		- rendering logic
 		- game play
+
+
 	-  Handling/Listening for Pong Event on Client
 		- 1 paddle per player
 			- paddle bottom = referee
@@ -304,3 +309,64 @@ cf: "Appendix: Pong Front End" section
 		- tip: on `index.html` no need to specify an URL to connect to as by default it connect to the same URL that was configured ( this can be removed )
 		- lessons implementation leads
 			- After setting the express server ( similar to the before head implementation ) - did apply SOC and refacto
+
+	- Namespace:
+		*Part of the common Socket.io feature*
+		Namespace : is a communication channel allowing to split the app logic over a single shared connection
+		--> = allows to separate sockets server concern using endpoints the client can connect to handle different tasks concern
+		- a `<namespace>` is the path on which the sockets should be serve,
+		which will be replacing all instantiation of `io` the variable for the socket server
+
+		- [client] Listen for a specific namespace from the client
+		```js
+			/** [client] 
+			 * - no namespace: is a default behavior taking the server URL reference
+			 * - specified namespace: splits the sockets concern to the specific namespace
+			 */
+			io(<namespace>)
+		```
+		- [server] Create a namespace in the server
+		```js
+			// [server] - 
+			const namespace = `io.of(<namespace>)`
+		```
+		- Demonstration of sockets split concern working
+			After setting a specific namespace on the server side
+			- step 1: 
+				- go to the `script.js` file and give no or give a specific namespace
+				not matching the one declared on the server side. ex: `/game`
+				- navigate to the server url once the server mounted
+				- open a second tab with the same url
+				- Observation:
+					- `index.html` is served on both tab/window having the same url
+					- the game does not start
+				Here the namespace from the front end does not match the namespace on
+				the server side: hence nothing happen
+			- step 2: - after the step one was applied
+				- modify the `script.js` socket name space: the game is correctly
+				launched on both clients
+			
+
+	- Rooms:
+		*Part of the common Socket.io feature*
+		A special feature to enclose a number of connection per game for a server
+		serving more than 2 players here.
+		It further split the sockets into rooms ( or a game per team ) - enabling multiple concurrent game concurrently without conflicts.
+		By group of connected people.
+		- How to create a room
+			- server side: 
+				- Add a variable room with a specific name generated when per group
+				 of users/players
+				 ex: `room-1` once a group of 2 players is ready.
+				- Connect to a room: 
+				`io.join(<roomName>)`
+
+				- update broadcasting emitter
+					- `io.to(<room>).emit(...)`: to all client but sender
+					- `io.in(<room>).emit(...)`: to all client including sender
+	- Extra: 
+		- implemented a nicer UI/UX on disconnection from a room
+			 - when one player leaves (weither it is the referee player or not )
+			  the player window will refresh, emit `ready` and wait for an opponent
+			- if one player for each group leaves, each player are gathered in the same group
+			  and can play

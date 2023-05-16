@@ -1,10 +1,12 @@
+
+
 // Player related
 let isReferee = false;
 
 // Canvas Related 
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
-const socket = io();
+const socket = io('/pong-game');
 let paddleIndex = 0;
 
 let width = 500;
@@ -204,9 +206,10 @@ function setGame(){
 
 // Start Game, Reset Everything
 function startGame(isReferee) {
-  console.log('Starting game...')
+  console.info('Starting game...')
   // paddleIndex = 0;
   paddleIndex = isReferee ? 0 : 1;
+
   window.requestAnimationFrame(animate);
   canvas.addEventListener('mousemove', (e) => {
     playerMoved = true;
@@ -230,25 +233,25 @@ setGame();
 
 socket
   .on('connect', () => {
-    console.log(' 0 - Player socker it:', socket.id );
+      console.info(' 0 - Player socket id:', socket.id );
   })
   .on('startGame', (refereeId) => {
     isReferee = refereeId === socket.id;
     startGame(isReferee);
-    console.log('1 - Current player is referee?', isReferee, ':', socket.id )
+    console.info('1 - Current player is referee?', isReferee, ':', socket.id )
   })
   .on('paddleMove', ({ xPosition }) => {
     // Identify target in paddleX tuple player position to update
     const otherPaddleIndex = Number(!paddleIndex);
     paddleX[otherPaddleIndex] = xPosition;
   })
-  // 
   .on('ballMove', ({ score: _score, ...ball }) => {
     ballX = ball.ballX;
     ballY = ball.ballY;
     score = _score
   })
   .on('resetGame', () => { 
-    // Re-initialize the game by reloading the whole.
-    window.location.reload();
+    console.info('Reset Game approved')
+      // Re-initialize the game by reloading the whole.
+      window.location.reload();
    });
