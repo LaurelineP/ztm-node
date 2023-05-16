@@ -3,17 +3,19 @@ let usersCount = 0;
 
 
 function countConnectedUsers(eventName){
+
 	switch (eventName) {
 		case 'connection':
 			usersCount += 1;
 			break;
 	
 		case 'disconnect':
-			usersCount < 0 ? 0 : usersCount -= 1;
+			usersCount <= 0 ? 0 : usersCount -= 1;
+
 			break;
 
 		default:
-			usersCount
+			usersCount = usersCount;
 			break;
 	}
 	return usersCount;
@@ -29,8 +31,12 @@ function logConnectedUsersCount(eventName) {
 	return count;
 }
 
+function generateRoom( playersCount ) {
+	return `room-${Math.floor( playersCount / 2)}`;
+}
 
 module.exports = {
 	countConnectedUsers,
-	logConnectedUsersCount
+	logConnectedUsersCount,
+	generateRoom
 }
