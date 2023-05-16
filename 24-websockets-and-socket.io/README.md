@@ -58,16 +58,20 @@ Different kind of sockets:
 Network sockets __________________________________
 
 
-					  IP sockets
-					_______|______
-					|			 |
-			TCP Sockets		 Diagram sockets
-		________|________
-		|				|		
-	WebSockets 		  *HTTP*
+                     IP sockets
+                         |
+                 ________|_______
+                 |              |
+                 |              |
+            TCP Sockets     Diagram sockets
+                 |
+         ________|________
+         |               |		
+         |               |		
+      WebSockets       *HTTP*
 
 
-__________________________________________________
+____________________________________________________
 
 ```
 
