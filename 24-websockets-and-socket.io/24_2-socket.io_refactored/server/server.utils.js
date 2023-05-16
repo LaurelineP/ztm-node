@@ -11,7 +11,6 @@ function countConnectedUsers(eventName){
 	
 		case 'disconnect':
 			usersCount <= 0 ? 0 : usersCount -= 1;
-
 			break;
 
 		default:
@@ -31,12 +30,19 @@ function logConnectedUsersCount(eventName) {
 	return count;
 }
 
-function generateRoom( playersCount ) {
+
+
+function generateRoomName( playersCount ) {
 	return `room-${Math.floor( playersCount / 2)}`;
+}
+
+function logTotalConnectedCount( count ){
+	console.info( `\tConnected player(s) count in total: ${count}`);
 }
 
 module.exports = {
 	countConnectedUsers,
 	logConnectedUsersCount,
-	generateRoom
+	generateRoomName,
+	logTotalConnectedCount
 }
