@@ -233,12 +233,13 @@ setGame();
 
 socket
   .on('connect', () => {
-      console.info(' 0 - Player socket id:', socket.id );
+      console.info(' 0 - Connection OK: Player socket id:', socket.id );
   })
-  .on('startGame', (refereeId) => {
+  .on('startGame', (refereeId, room, playersIds) => {
+    console.log('STARTING GAME OK', playersIds)
     isReferee = refereeId === socket.id;
     startGame(isReferee);
-    console.info('1 - Current player is referee?', isReferee, ':', socket.id )
+    console.info('1 - Current player is referee?', isReferee, ':', socket.id, 'room:', room )
   })
   .on('paddleMove', ({ xPosition }) => {
     // Identify target in paddleX tuple player position to update
@@ -250,8 +251,8 @@ socket
     ballY = ball.ballY;
     score = _score
   })
-  .on('resetGame', () => { 
-    console.info('Reset Game approved')
+  .on('resetGame', ( remainingPlayersId ) => { 
+    console.info('Reset Game approved, remainingPlayersId:',remainingPlayersId)
       // Re-initialize the game by reloading the whole.
       window.location.reload();
    });

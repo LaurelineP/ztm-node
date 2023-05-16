@@ -370,7 +370,7 @@ cf: "Appendix: Pong Front End" section
 					- `io.in(<room>).emit(...)`: to all client including sender
 	- Extra: 
 		- implemented a nicer UI/UX on disconnection from a room
-			 - when one player leaves (weither it is the referee player or not )
+			 - when one player leaves (wether it is the referee player or not )
 			  the player window will refresh, emit `ready` and wait for an opponent
 			- if one player for each group leaves, each player are gathered in the same group
 		    and can play

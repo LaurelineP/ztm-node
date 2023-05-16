@@ -1,35 +1,56 @@
-const { countConnectedUsers, logConnectedUsersCount, generateRoom } = require('../server.utils');
-
-let playersCount = countConnectedUsers();
+const { countConnectedUsers, generateRoomName, logTotalConnectedCount } = require('../server.utils');
 
 /** listenSockets: sockets event handlers  */
 function listenSockets( socketsServer ){
 
 	/** Namespace - splitting concern of sockets per endpoint */
 	const socketsServerPongGame = socketsServer.of('/pong-game');
+
+	/** Count sockets for 2 possible use-case: all sockets or all sockets in a room */
+	const getSocketsServerCount = async( roomName ) => {
+		const ACTION = !roomName ? 'TOTAL_SOCKETS' : 'ROOM_SOCKETS';
+		let socketCtx;
+		if(ACTION === 'ROOM_SOCKETS'){
+			socketCtx = socketsServerPongGame.in(roomName);
+		} else { 
+			socketCtx = socketsServerPongGame;
+		}
+
+		const count = await socketCtx
+			.fetchSockets()
+			.then( sockets => sockets.length );
+
+		return { action: ACTION, count }
+	}
 	
 	/** [socket.io - server] - Socket.io server events handler */
-	socketsServerPongGame.on('connection', (_client) => {
-		
+	socketsServerPongGame.on('connection', async (_client) => {
 		let room;
-
+		const {count: totalSocketsCount } = await getSocketsServerCount();
+		const _x = await socketsServerPongGame.fetchSockets();
+		
+		
 		/** Broadcast all clients in room but sender */
 		const broadcastRoomTo = room => _client.to(room);
-	
+		
+		
+		logTotalConnectedCount(totalSocketsCount)
 		/** [socket.io - client listener] */
 		_client
 			/* on (player) ready: checks if `playersCount` is sufficient to launch a game */
-			.on('ready',() => {
-				/** Room creation: per group of 2 */
-				room = generateRoom( playersCount );
+			.on('ready', async() => {
+				/** Identification relying on division and math.floor - hence minus 1 to get first room "room-0" */
+				room = generateRoomName( totalSocketsCount - 1);
 				_client.join(room);
-
-				/** Increase after to sustain the even naming  */
-				playersCount = logConnectedUsersCount('connection');
 				
-				if( playersCount % 2 === 0 ){
-					socketsServerPongGame.in(room).emit('startGame', _client.id, room);
-					console.info(`\t▶️ Game started at: "${room}" with ${playersCount} players.\n`);
+				const { count: roomPlayersCount } = await getSocketsServerCount(room);
+
+				
+				/** Room creation: per group of 2 */
+				if(totalSocketsCount % 2 === 0){
+					const playersIds = [...socketsServerPongGame.in(room).adapter.sids.keys()];
+					socketsServerPongGame.in(room).emit('startGame', _client.id, room, playersIds);
+					console.info(`\t▶️ Game started at: "${room}" with ${roomPlayersCount} players.\n`);
 				}
 			})
 	
@@ -45,15 +66,15 @@ function listenSockets( socketsServer ){
 	
 			/* on disconnection: reconnect if due to server issue or warn the other remaining player */
 			.on('disconnect', async (reason) => {
-				
 				if(reason === 'io server disconnect'){
 					_client.connect();
 				} else {
-					_client.in(room).emit('resetGame');
-					console.info(`\tGame has stopped, there are not enough players:\n\t --> ${reason}`);
+
+					_client.in(room).emit('resetGame',  );
+					console.info(`\n\tGame has stopped, a player left:\n\t --> ${reason}`);
 			
-					_client.leave(room);
-					console.info(`\tKilled ${room}`);
+					console.info(`\tWill Kill ${room}\n`);
+					socketsServerPongGame.in(room).socketsLeave(room);
 				}
 			})
 	});
