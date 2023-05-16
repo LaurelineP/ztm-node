@@ -373,4 +373,4 @@ cf: "Appendix: Pong Front End" section
 			 - when one player leaves (weither it is the referee player or not )
 			  the player window will refresh, emit `ready` and wait for an opponent
 			- if one player for each group leaves, each player are gathered in the same group
-			  and can play
+		    and can play
