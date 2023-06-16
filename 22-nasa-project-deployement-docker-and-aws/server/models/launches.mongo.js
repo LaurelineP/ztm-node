@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 // 	rocket		: null,
 // 	target		: null,
 // 	customers	: null,
-// 	flightNumber: null,
+// 	flightNumber	: null,
 // 	upcoming	: null,
 // 	success		: null
 // };
@@ -27,8 +27,8 @@ const launchesSchema = new mongoose.Schema({
 
 	/* more exhaustive typing - provide the type as specification using an object */
 	flightNumber	: {
-		type			: Number,
-		required		: true,
+		type		: Number,
+		required	: true,
 	},
 	launchDate		: {
 		type		: Date,
@@ -63,7 +63,7 @@ const launchesSchema = new mongoose.Schema({
 	 * Databases are specialized for a reason
 	 */
 	// target: {
-	// 	ref			: 'Planet',
+	// 	ref		: 'Planet',
 	// 	type		: mongoose.ObjectId,
 	// 	required	: true
 	// }
