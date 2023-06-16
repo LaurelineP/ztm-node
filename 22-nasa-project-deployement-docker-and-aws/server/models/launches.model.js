@@ -1,6 +1,6 @@
 'use strict';
-const axios 			= require('axios');
-const { getQuerySkip } = require('../services/query');
+const axios 		= require('axios');
+const { getQuerySkip } 	= require('../services/query');
 
 /* -------------------------------- Db Models ------------------------------- */
 const launchesDBModel 	= require('./launches.mongo');
@@ -13,7 +13,7 @@ const _launch = {
 	rocket		: null,
 	target		: null,
 	customers	: null,
-	flightNumber: null,
+	flightNumber	: null,
 	upcoming	: null,
 	success		: null
 };
@@ -29,14 +29,14 @@ function createLaunch( details ){
 
 /** First static launch creation */
 const launch1 = createLaunch({
-	flightNumber: 100, 								// SPACE X / Launch - "flight_number"
-	mission		: 'Kepler Exploration X',  			// SPACE X / Launch - "name"
-	rocket		: 'Explorer IS1', 					// SPACE X / Launch - "rocket" > Rocket{ id } - "name"
+	flightNumber: 100, 					// SPACE X / Launch - "flight_number"
+	mission		: 'Kepler Exploration X',  		// SPACE X / Launch - "name"
+	rocket		: 'Explorer IS1', 			// SPACE X / Launch - "rocket" > Rocket{ id } - "name"
 	launchDate 	: new Date('December 27, 2030'), 	// SPACE X / Launch - "date_local"
-	target		: 'Kepler-442 b', 					// == not applicable
-	customers	: ['Musk', 'NASA'],					// SPACE X / Launch - "payloads" array > Payloads{ id } - "customers"
-	upcoming	: true,								// SPACE X / Launch - "upcoming"
-	success		: true 								// SPACE X / Launch - "success"
+	target		: 'Kepler-442 b', 			// == not applicable
+	customers	: ['Musk', 'NASA'],			// SPACE X / Launch - "payloads" array > Payloads{ id } - "customers"
+	upcoming	: true,					// SPACE X / Launch - "upcoming"
+	success		: true 					// SPACE X / Launch - "success"
 });
 
 
@@ -49,11 +49,11 @@ const launch1 = createLaunch({
 async function saveLaunch( launch ){
 	try {
 		// Create a launch document
-		// await launchesDBModel.updateOne( // causing the auto generated $setOnInsert in response to F-E
-		await launchesDBModel.findOneAndUpdate(
+		// await launchesDBModel.updateOne( 		// overriden with bellow - causing the auto generated $setOnInsert value in response to F-E
+		await launchesDBModel.findOneAndUpdate(		// override of above:
 			{ flightNumber: launch.flightNumber },	// criteria to find if exists
-			launch,									// what it should update
-			{ upsert: true }, 						// upsert to avoid creating duplication
+			launch,					// payload to update the existing content with
+			{ upsert: true }, 			// upsert: this avoids creating duplication
 		)
 		return launch;
 	} catch ( error ) {
@@ -97,19 +97,19 @@ async function populateLaunchesFromSpaceX(){
 			})
 			.then( res => res.data.docs );
 
-		const mappedLaunches 	= responseLaunchDocs.map(( launch, idx )=> {
+		const mappedLaunches 	= responseLaunchDocs.map(( launch, idx ) => {
 			const payloads 		= launch.payloads;
 			const customers 	= payloads.flatMap( payload => payload['customers'] );
 
 			const _launch = {
 				flightNumber: launch[ 'flight_number'], 	// SPACE X / Launch - "flight_number"
-				mission		: launch.name,  				// SPACE X / Launch - "name"
-				rocket		: launch.rocket.name, 			// SPACE X / Launch - "rocket" > Rocket{ id } - "name"
-				launchDate 	: launch.date_local, 			// SPACE X / Launch - "date_local"
-				target		: '--------',					// == not applicable
-				customers	: customers,					// SPACE X / Launch - "payloads" array > Payloads{ id } - "customers"
-				upcoming	: launch.upcoming,				// SPACE X / Launch - "upcoming"
-				success		: launch.success 				// SPACE X / Launch - "success"
+				mission		: launch.name,  		// SPACE X / Launch - "name"
+				rocket		: launch.rocket.name, 		// SPACE X / Launch - "rocket" > Rocket{ id } - "name"
+				launchDate 	: launch.date_local, 		// SPACE X / Launch - "date_local"
+				target		: '--------',			// == not applicable
+				customers	: customers,			// SPACE X / Launch - "payloads" array > Payloads{ id } - "customers"
+				upcoming	: launch.upcoming,		// SPACE X / Launch - "upcoming"
+				success		: launch.success 		// SPACE X / Launch - "success"
 			}
 
 			saveLaunch( _launch );
@@ -150,7 +150,7 @@ async function getLatestLaunchFlightNumber(){
 	return latestLaunch?.flightNumber || DEFAULT_FLIGHT_NUMBER;
 }
 
-/** § – findLaunch: Finds a launch based on
+/** § – findLaunch: Finds a launch based on given `filter`
  *  - @params filter
  */
 async function findLaunch( filter ){
