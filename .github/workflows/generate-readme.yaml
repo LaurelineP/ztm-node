@@ -1,0 +1,43 @@
+
+name: Generate Readme.md
+
+on: 
+  pull_request:
+    branches: [ master ]
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SKIP_REST: false
+
+# A workflow is built up on jobs ( equivalent to checking all those jobs )
+# - By default, github actions jobs runs in parallel which should be specified
+#   under the job with a new indentation with `needs` key and the  action it relies
+#    onto
+jobs:
+  generate-readme:
+    name: Generate README.md
+    # specifies on which environment to run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # adding description with `name`
+      - name: 'Uses Node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run Readme script generator
+        run: node workflows-scripts/generate-readme-section-contents.js
+
+      - name: Commit if changes
+        run: |
+          if git diff --quiet README.md; then
+            echo "No changes to commit"
+            echo "SKIP_REST=true" >> $GITHUB_ENV
+          else
+            git add README.md
+            git commit -m "(CI) README updates"
+          fi
+
+      - name: Push changes
+        if: env.SKIP_REST != 'true'
+        run: git push origin master
+
