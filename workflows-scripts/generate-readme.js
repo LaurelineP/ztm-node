@@ -67,12 +67,17 @@ const writeToRootReadme = async( readmeFilePath, contentDetails )=> {
 
 const generateReadmeContentPerSection = (async( rootPath ) => {
 
+	console.info('Executing script for readme:')
+
 	const readmeFilePaths = await getReadmeFilePaths( rootPath );
 	const contentsDetails = await getReadmeContents( readmeFilePaths );
 	const readmeHeader = await fs.readFile('README.header.md', { encoding: 'UTF-8'});
 	const README_PATH = './README.md';
 	fs.writeFile(README_PATH, readmeHeader + '\n\n\n')
 	await writeToRootReadme(README_PATH, contentsDetails)
+
+	console.info('Finished executing script for readme 🎉')
+
 	
 
 
