@@ -62,7 +62,7 @@ const writeToRootReadme = async( readmeFilePath, contentDetails )=> {
 			const title = `📌 ${ contentDetailsItem.folderNameFormatted }`;
 			const innerReadmePath = contentDetailsItem.folderRelPath;
 			let folderRelPathOpeningTag = `<details>\n\t<summary>${title}</summary>`;
-			folderRelPathOpeningTag += `\n[Need to update this part of the Readme?](./${ innerReadmePath })\n`
+			folderRelPathOpeningTag += `\n\n[✏️ Need to update this Readme Section?](./${ innerReadmePath })\n`
 
 
 			const folderRelPathClosingTag = `\n</details>\n`;

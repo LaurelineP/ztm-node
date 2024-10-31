@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 <details>
 	<summary>📌 HTTP SERVER</summary>
 [Need to update this part of the Readme?](./9-http-server/README.md)
@@ -1641,3 +1642,5 @@ fetch('http://localhost:9000/friends', {
 ```
 
 </details>
+=======
+>>>>>>> 997b2e3 ( github actions refinements)
