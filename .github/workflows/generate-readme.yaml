@@ -6,7 +6,6 @@ on:
     branches: [ master ]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SKIP_ACTIONS: false
 
 permissions:
     contents: write
@@ -18,21 +17,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-         ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref }}
 
       - name: 'Uses Node'
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: "Configure Git for github-actions"
         run: |
             git config --global user.name "GitHub Actions"
             git config --global user.email "actions@github.com"
+
       - name: Run Readme script generator
         run: |
           node workflows-scripts/generate-readme.js
           git add README.md
-          git commit -m "(CI) README updates"
-          git config user.email "you@example.com"
+          git commit -m "(CI) README updated"
           git push
 
