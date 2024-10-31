@@ -1,8 +1,17 @@
+# ZTM - Node
+Deepening node by reviewing it.
 
-<<<<<<< HEAD
+## Navigation
+Each folder section has a README.md file with some notes most of the time.
+
+Extra notes ( handwriting notes ) are attached.
+[View the PDF](./assets/ZTM-Notes_CompleteNodeDevelopper_compressed.pdf)
+
+
 <details>
 	<summary>📌 HTTP SERVER</summary>
-[Need to update this part of the Readme?](./9-http-server/README.md)
+
+[✏️ Need to update this Readme Section?](./9-http-server/README.md)
 
 # CREATE A WEB SERVER
 
@@ -52,7 +61,8 @@ The practice was to use the previously viewed notion about file system and the u
 </details>
 <details>
 	<summary>📌 PLANETS DETAILS PROJECT</summary>
-[Need to update this part of the Readme?](./8-planets-details-project/README.md)
+
+[✏️ Need to update this Readme Section?](./8-planets-details-project/README.md)
 
 # Planets Data Details project
 Project to parse data from a file to readable data and writable data using:
@@ -66,7 +76,8 @@ Project to parse data from a file to readable data and writable data using:
 </details>
 <details>
 	<summary>📌 NASA PROJECT DEPLOYEMENT DOCKER AND AWS</summary>
-[Need to update this part of the Readme?](./22-nasa-project-deployement-docker-and-aws/README.md)
+
+[✏️ Need to update this Readme Section?](./22-nasa-project-deployement-docker-and-aws/README.md)
 
 # DEPLOYMENT WITH DOCKER AND AWS
 Deploy into the cloud - cloud being hosted servers accessed over the internet
@@ -252,7 +263,8 @@ The web app should be available ✨🙌
 </details>
 <details>
 	<summary>📌 NASA PROJECT CI CD</summary>
-[Need to update this part of the Readme?](./21-nasa-project-CI-CD/README.md)
+
+[✏️ Need to update this Readme Section?](./21-nasa-project-CI-CD/README.md)
 
 # CI / CD
 **Continuous Integration**: iterate the commit to push and tests the implementation  
@@ -319,7 +331,8 @@ mongodb github actions: https://github.com/marketplace/actions/mongodb-in-github
 </details>
 <details>
 	<summary>📌 NODE SECURITY AND AUTHENTIFICATION</summary>
-[Need to update this part of the Readme?](./20-node-security-and-authentification/README.md)
+
+[✏️ Need to update this Readme Section?](./20-node-security-and-authentification/README.md)
 
 # NODE SECURITY AND AUTHENTICATION
 **Finished Code for this section*: https://github.com/odziem/security-example
@@ -427,7 +440,8 @@ https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html
 </details>
 <details>
 	<summary>📌 NASA PROJECT WITH DATABASE X SPACEX API</summary>
-[Need to update this part of the Readme?](./19-nasa-project-with-database-x-SpaceX-API/README.md)
+
+[✏️ Need to update this Readme Section?](./19-nasa-project-with-database-x-SpaceX-API/README.md)
 
 # Nasa Project + database + external REST API
 
@@ -513,7 +527,8 @@ env document
 </details>
 <details>
 	<summary>📌 NASA PROJECT WITH DATABASE</summary>
-[Need to update this part of the Readme?](./18-nasa-project-with-database/README.md)
+
+[✏️ Need to update this Readme Section?](./18-nasa-project-with-database/README.md)
 
 # Nasa Project
 
@@ -907,7 +922,8 @@ afterAll( async () => {
 </details>
 <details>
 	<summary>📌 IMPROVING NODE PERFOMANCE</summary>
-[Need to update this part of the Readme?](./17-improving-node-perfomance/README.md)
+
+[✏️ Need to update this Readme Section?](./17-improving-node-perfomance/README.md)
 
 ### Building A Simple Blocking Server
 In order to understand how to improve performances issues
@@ -1288,7 +1304,8 @@ if( isMainThread ){
 </details>
 <details>
 	<summary>📌 NASA PROJECT</summary>
-[Need to update this part of the Readme?](./16-nasa-project/README.md)
+
+[✏️ Need to update this Readme Section?](./16-nasa-project/README.md)
 
 # Nasa Project
 
@@ -1347,7 +1364,8 @@ By default browser block cross origin requests
 </details>
 <details>
 	<summary>📌 EXPRESS SERVER MVC ROUTER TEMPLATINGENGINE</summary>
-[Need to update this part of the Readme?](./15-express-server-MVC-router-templatingEngine/README.md)
+
+[✏️ Need to update this Readme Section?](./15-express-server-MVC-router-templatingEngine/README.md)
 
 # Templating Engine:
 Templating Engines are tools enabling us to dynamically inject js variable within ( using interpolation ) the HTML part based on some server state ( based on data living into the server )
@@ -1357,7 +1375,8 @@ Templating Engines are tools enabling us to dynamically inject js variable withi
 </details>
 <details>
 	<summary>📌 EXPRESS SERVER MVC ROUTER</summary>
-[Need to update this part of the Readme?](./14-express-server-MVC-router/README.md)
+
+[✏️ Need to update this Readme Section?](./14-express-server-MVC-router/README.md)
 
 # Express framework:
 Express is one of the mostly used web lightweight framework
@@ -1479,7 +1498,8 @@ See: https://stackoverflow.com/questions/31425284/express-static-vs-res-sendfile
 </details>
 <details>
 	<summary>📌 EXPRESS SERVER MVC</summary>
-[Need to update this part of the Readme?](./13-express-server-MVC/README.md)
+
+[✏️ Need to update this Readme Section?](./13-express-server-MVC/README.md)
 
 # Express framework:
 Express is one of the mostly used web lightweight framework
@@ -1551,7 +1571,8 @@ MVC can be reflected to the project structure having a folder for each Letter of
 </details>
 <details>
 	<summary>📌 EXPRESS SERVER</summary>
-[Need to update this part of the Readme?](./12-express-server/README.md)
+
+[✏️ Need to update this Readme Section?](./12-express-server/README.md)
 
 # Express framework:
 Express is one of the mostly used web lightweight framework
@@ -1594,7 +1615,8 @@ The next() execution tells the process to pass to the next stream.
 </details>
 <details>
 	<summary>📌 HTTP SERVER REQUESTS AND RESPONSES AS STREAMS</summary>
-[Need to update this part of the Readme?](./11-http-server_requests-and-responses-as-streams/README.md)
+
+[✏️ Need to update this Readme Section?](./11-http-server_requests-and-responses-as-streams/README.md)
 
 # CREATE A WEB SERVER
 
@@ -1617,7 +1639,8 @@ Server to another Server
 </details>
 <details>
 	<summary>📌 HTTP SERVER AND POST DATA</summary>
-[Need to update this part of the Readme?](./10-http-server-and-post-data/README.md)
+
+[✏️ Need to update this Readme Section?](./10-http-server-and-post-data/README.md)
 
 ## 5 Add new data with POST
 Based on `req.request`, in order to dissociate type of requests 
@@ -1642,5 +1665,3 @@ fetch('http://localhost:9000/friends', {
 ```
 
 </details>
-=======
->>>>>>> 997b2e3 ( github actions refinements)
